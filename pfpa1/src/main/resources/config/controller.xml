@@ -5,4 +5,7 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="commonController" class="controller.CommonController"/>
+	<bean id="memberController" class="controller.MemberController">
+		<property name="memberService" ref="memberServiceImpl"/>
+	</bean>
 </beans>
