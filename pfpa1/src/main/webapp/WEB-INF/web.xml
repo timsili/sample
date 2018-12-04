@@ -12,6 +12,9 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
+				classpath:config/mvc.xml
+				classpath:config/spring.xml
+				classpath:config/controller.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
