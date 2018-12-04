@@ -9,6 +9,6 @@
 </head>
 <body>
 this is main page<br>
-<a href="<c:url value="/min"/>">회원가입</a>
+<a href="<c:url value="/tac"/>">회원가입</a>
 </body>
 </html>

@@ -16,9 +16,8 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.GET)
-	public String insert(Model model) {
-		model.addAttribute("memberVO", new MemberVO());
-		return "/member/insert";
+	public String insert() {
+		return "redirect:/tac";
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.POST)
 	public String insert(MemberVO memberVO) {
