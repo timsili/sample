@@ -18,4 +18,12 @@ public class MemberServiceImpl implements MemberService {
 	public void insert(MemberVO memberVO) {
 		memberDao.insert(memberVO);
 	}
+	@Override
+	public int countById(String id) {
+		return memberDao.countById(id);
+	}
+	@Override
+	public MemberVO selectById(String id) {
+		return memberDao.selectById(id);
+	}
 }

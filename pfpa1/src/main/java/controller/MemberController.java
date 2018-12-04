@@ -1,11 +1,16 @@
 package controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import common.utils.Salt;
+import domain.LoginVO;
 import domain.MemberVO;
 import service.MemberService;
 
@@ -16,8 +21,11 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.GET)
-	public String insert() {
-		return "redirect:/tac";
+	public String insert(MemberVO memberVO, HttpSession session) {
+		if(session.getAttribute("loginVO") != null) {
+			return "redirect:/main";
+		}
+		return "/member/insert";
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.POST)
 	public String insert(MemberVO memberVO) {
@@ -30,6 +38,45 @@ public class MemberController {
 		memberVO.setPwd(npwd);
 		memberVO.setSalt(salt);
 		memberService.insert(memberVO);
+		return "redirect:/main";
+	}
+	@RequestMapping(value = "/lin", method = RequestMethod.GET)
+	public String login(LoginVO loginVO, HttpSession session, @CookieValue(value = "reme", required = false) Cookie cookie) {
+		if(session.getAttribute("loginVO") != null) {
+			return "redirect:/main";
+		}
+		if(cookie != null) {
+			loginVO.setId(cookie.getValue());
+			loginVO.setReme(true);
+		}
+		return "/common/login";
+	}
+	@RequestMapping(value = "/lin", method = RequestMethod.POST)
+	public String login(LoginVO loginVO, HttpSession session, HttpServletResponse resp) {
+		if(memberService.countById(loginVO.getId()) <= 0) {
+			return "redirect:/lin";
+		}
+		MemberVO memberVO = memberService.selectById(loginVO.getId());
+		String salt = memberVO.getSalt();
+		String tmp = loginVO.getPwd();
+		String npwd = Salt.getEncrypt(tmp, salt);
+		if(!npwd.equals(memberVO.getPwd())) {
+			return "redirect:/lin";
+		}
+		session.setAttribute("loginVO", loginVO);
+		Cookie cookie = new Cookie("reme", loginVO.getId());
+		cookie.setPath("/");
+		if(loginVO.isReme()) {
+			cookie.setMaxAge(60*60*24*30);
+		}else {
+			cookie.setMaxAge(0);
+		}
+		resp.addCookie(cookie);
+		return "redirect:/main";
+	}
+	@RequestMapping(value = "/lou")
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "redirect:/main";
 	}
 }

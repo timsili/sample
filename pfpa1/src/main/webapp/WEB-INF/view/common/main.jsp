@@ -9,6 +9,13 @@
 </head>
 <body>
 this is main page<br>
-<a href="<c:url value="/tac"/>">회원가입</a>
+<c:if test="${empty loginVO }">
+	<a href="<c:url value="/tac"/>">회원가입</a><br>
+	<a href="<c:url value="/lin"/>">로그인</a><br>
+</c:if>
+<c:if test="${!empty loginVO }">
+	${loginVO.id}<br>
+	<a href="<c:url value="/lou"/>">로그아웃</a><br>
+</c:if>
 </body>
 </html>

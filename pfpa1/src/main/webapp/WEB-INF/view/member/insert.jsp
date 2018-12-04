@@ -17,11 +17,11 @@
 			</tr>
 			<tr>
 				<th><form:label path="pwd">Password</form:label></th>
-				<td><form:input path="pwd"/></td>
+				<td><form:password path="pwd"/></td>
 			</tr>
 			<tr>
 				<th><form:label path="cpwd">Confirm Password</form:label></th>
-				<td><form:input path="cpwd"/></td>
+				<td><form:password path="cpwd"/></td>
 			</tr>
 			<tr>
 				<th><form:label path="name">Name</form:label></th>
