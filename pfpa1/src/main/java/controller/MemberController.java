@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -94,5 +95,14 @@ public class MemberController {
 		model.addAttribute("memberList", memberService.list(criteria));
 		model.addAttribute("pagination", pagination);
 		return "/member/list";
+	}
+	@RequestMapping(value = "/mse/{id}")
+	public String select(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		model.addAttribute("memberVO", memberService.selectById(id));
+		return "/member/select";
 	}
 }

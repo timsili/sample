@@ -23,7 +23,7 @@
 		<c:forEach var="m" items="${memberList}" varStatus="loop">
 			<tr>
 				<td>${m.no}</td>
-				<td><a href="<c:url value="/mse/${m.no}"/>">${m.id}</a></td>
+				<td><a href="<c:url value="/mse/${m.id}"/>">${m.id}</a></td>
 				<td>${m.name}</td>
 				<td>${m.email}</td>
 				<td>${m.ceph}</td>

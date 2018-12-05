@@ -4,10 +4,7 @@
 
 <mapper namespace="memberDao">
 	<insert id="insert" parameterType="memberVO">
-		insert into member
-			(no, id, pwd, salt, name, email, tel, ceph, poco, addr, daddr, poin, sum, rank, regd)
-		values
-			(member_seq.nextval, #{id}, #{pwd}, #{salt}, #{name}, #{email}, #{tel}, #{ceph}, #{poco}, #{addr}, #{daddr}, 0, 0, '일반', systimestamp)
+		insert into member (no, id, pwd, salt, name, email, tel, ceph, poco, addr, daddr, poin, sum, rank, regd) values (member_seq.nextval, #{id}, #{pwd}, #{salt}, #{name}, #{email}, #{tel}, #{ceph}, #{poco}, #{addr}, #{daddr}, 0, 0, '일반', systimestamp)
 		<selectKey keyProperty="no" resultType="Integer">
 			select nvl (max(no), 0) from member
 		</selectKey>
@@ -23,13 +20,7 @@
 	</select>
 	<select id="list" resultType="memberVO">
 		<![CDATA[
-		select * from 
-			(select * from 
-				(select 
-					rownum rn, no, id, pwd, salt, name, email, tel, ceph, poco, addr, daddr, poin, sum, rank, regd 
-				from member order by no desc) 
-			where rn <= #{end}) 
-		where rn >= #{start}
+		select * from (select * from (select rownum rn, no, id, pwd, salt, name, email, tel, ceph, poco, addr, daddr, poin, sum, rank, regd from member order by no desc) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
 </mapper>
