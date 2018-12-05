@@ -133,4 +133,31 @@ public class MemberController {
 		sessionStatus.setComplete();
 		return "redirect:/main";
 	}
+	@RequestMapping(value = "/mde/{id}", method = RequestMethod.GET)
+	public String delete(Model model, HttpSession session, @PathVariable String id) {
+		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		model.addAttribute("loginVO", loginVO);
+		return "/member/delete";
+	}
+	@RequestMapping(value = "/mde/{id}", method = RequestMethod.POST)
+	public String delete(LoginVO loginVO, SessionStatus sessionStatus, @PathVariable String id, String pwd) {
+		MemberVO memberVODB = memberService.selectById(loginVO.getId());
+		if(loginVO.getPwd() != pwd) {
+			return "redirect:/main";
+		}
+		String salt = memberVODB.getSalt();
+		String tmp = pwd;
+		String npwd = Salt.getEncrypt(tmp, salt);
+		if(!npwd.equals(memberVODB.getPwd())) {
+			return "redirect:/main";
+		}
+		memberService.delete(id);
+		if(!loginVO.getId().equals("admin")) {
+			return "redirect:/lou";
+		}
+		return "redirect:/main";
+	}
 }
