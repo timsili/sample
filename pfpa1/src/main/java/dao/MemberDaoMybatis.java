@@ -42,4 +42,8 @@ public class MemberDaoMybatis implements MemberDao {
 	public int update(MemberVO memberVO) {
 		return sqlSessionTemplate.update("memberDao.update", memberVO);
 	}
+	@Override
+	public int delete(String id) {
+		return sqlSessionTemplate.delete("memberDao.delete", id);
+	}
 }

@@ -12,4 +12,5 @@ public interface MemberService {
 	public abstract int count();
 	public abstract List<MemberVO> list(Criteria criteria);
 	public abstract int update(MemberVO memberVO);
+	public abstract int delete(String id);
 }
