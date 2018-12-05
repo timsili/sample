@@ -26,10 +26,11 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.GET)
-	public String insert(HttpSession session) {
+	public String insert(Model model, HttpSession session) {
 		if(session.getAttribute("loginVO") != null) {
 			return "redirect:/main";
 		}
+		model.addAttribute("memberVO", new MemberVO());
 		return "/member/insert";
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.POST)
@@ -112,7 +113,8 @@ public class MemberController {
 		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
 			return "redirect:/main";
 		}
-		model.addAttribute("memberVO", memberService.selectById(id));
+		MemberVO memberVO = memberService.selectById(id);
+		model.addAttribute("memberVO", memberVO);
 		return "/member/update";
 	}
 	@RequestMapping(value = "/mup/{id}", method = RequestMethod.POST)
@@ -120,10 +122,11 @@ public class MemberController {
 		if(memberVO.getPwd() != pwd) {
 			return "redirect:/main";
 		}
-		String salt = memberVO.getSalt();
+		MemberVO memberVODB = memberService.selectById(memberVO.getId());
+		String salt = memberVODB.getSalt();
 		String tmp = pwd;
 		String npwd = Salt.getEncrypt(tmp, salt);
-		if(!npwd.equals(pwd)) {
+		if(!npwd.equals(memberVODB.getPwd())) {
 			return "redirect:/main";
 		}
 		memberService.update(memberVO);

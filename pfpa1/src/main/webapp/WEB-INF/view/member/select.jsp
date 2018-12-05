@@ -63,8 +63,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<a href="<c:url value="/mup"/>">Edit</a>
-				<a href="<c:url value="/mde"/>">Delete</a>
+				<a href="<c:url value="/mup/${id}"/>">Edit</a>
+				<a href="<c:url value="/mde/${id}"/>">Delete</a>
 				<a href="<c:url value="/main"/>">Main</a>
 			</td>
 		</tr>

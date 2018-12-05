@@ -24,6 +24,6 @@
 		]]>
 	</select>
 	<update id="update" parameterType="memberVO">
-		update member set 
+		update member set email = #{email}, tel = #{tel}, ceph = #{ceph}, poco = #{poco}, addr = #{addr}, daddr = #{daddr} where id = #{id}
 	</update>
 </mapper>
