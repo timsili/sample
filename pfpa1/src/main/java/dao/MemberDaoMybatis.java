@@ -38,4 +38,8 @@ public class MemberDaoMybatis implements MemberDao {
 	public List<MemberVO> list(Criteria criteria) {
 		return sqlSessionTemplate.selectList("memberDao.list", criteria);
 	}
+	@Override
+	public int update(MemberVO memberVO) {
+		return sqlSessionTemplate.update("memberDao.update", memberVO);
+	}
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import common.utils.Criteria;
 import common.utils.Pagination;
@@ -104,5 +105,29 @@ public class MemberController {
 		}
 		model.addAttribute("memberVO", memberService.selectById(id));
 		return "/member/select";
+	}
+	@RequestMapping(value = "/mup/{id}", method = RequestMethod.GET)
+	public String update(Model model, HttpSession session, @PathVariable String id) {
+		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		model.addAttribute("memberVO", memberService.selectById(id));
+		return "/member/update";
+	}
+	@RequestMapping(value = "/mup/{id}", method = RequestMethod.POST)
+	public String update(MemberVO memberVO, SessionStatus sessionStatus, String pwd) {
+		if(memberVO.getPwd() != pwd) {
+			return "redirect:/main";
+		}
+		String salt = memberVO.getSalt();
+		String tmp = pwd;
+		String npwd = Salt.getEncrypt(tmp, salt);
+		if(!npwd.equals(pwd)) {
+			return "redirect:/main";
+		}
+		memberService.update(memberVO);
+		sessionStatus.setComplete();
+		return "redirect:/main";
 	}
 }
