@@ -1,7 +1,10 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import common.utils.Criteria;
 import dao.MemberDao;
 import domain.MemberVO;
 
@@ -25,5 +28,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO selectById(String id) {
 		return memberDao.selectById(id);
+	}
+	@Override
+	public int count() {
+		return memberDao.count();
+	}
+	@Override
+	public List<MemberVO> list(Criteria criteria) {
+		return memberDao.list(criteria);
 	}
 }

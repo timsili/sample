@@ -5,10 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import common.utils.Criteria;
+import common.utils.Pagination;
 import common.utils.Salt;
 import domain.LoginVO;
 import domain.MemberVO;
@@ -21,7 +24,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.GET)
-	public String insert(MemberVO memberVO, HttpSession session) {
+	public String insert(HttpSession session) {
 		if(session.getAttribute("loginVO") != null) {
 			return "redirect:/main";
 		}
@@ -78,5 +81,18 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main";
+	}
+	@RequestMapping(value = "/mli")
+	public String list(LoginVO loginVO, Model model, HttpSession session, Criteria criteria) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		Pagination pagination = new Pagination();
+		pagination.setCriteria(criteria);
+		pagination.setCount(memberService.count());
+		model.addAttribute("memberList", memberService.list(criteria));
+		model.addAttribute("pagination", pagination);
+		return "/member/list";
 	}
 }
