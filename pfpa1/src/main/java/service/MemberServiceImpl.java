@@ -37,4 +37,8 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> list(Criteria criteria) {
 		return memberDao.list(criteria);
 	}
+	@Override
+	public int update(MemberVO memberVO) {
+		return memberDao.update(memberVO);
+	}
 }

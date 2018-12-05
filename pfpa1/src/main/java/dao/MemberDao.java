@@ -11,4 +11,5 @@ public interface MemberDao {
 	public abstract MemberVO selectById(String id);
 	public abstract int count();
 	public abstract List<MemberVO> list(Criteria criteria);
+	public abstract int update(MemberVO memberVO);
 }

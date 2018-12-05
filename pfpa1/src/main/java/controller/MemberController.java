@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 
 import common.utils.Criteria;
 import common.utils.Pagination;
@@ -25,10 +26,11 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.GET)
-	public String insert(HttpSession session) {
+	public String insert(Model model, HttpSession session) {
 		if(session.getAttribute("loginVO") != null) {
 			return "redirect:/main";
 		}
+		model.addAttribute("memberVO", new MemberVO());
 		return "/member/insert";
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.POST)
@@ -104,5 +106,31 @@ public class MemberController {
 		}
 		model.addAttribute("memberVO", memberService.selectById(id));
 		return "/member/select";
+	}
+	@RequestMapping(value = "/mup/{id}", method = RequestMethod.GET)
+	public String update(Model model, HttpSession session, @PathVariable String id) {
+		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		MemberVO memberVO = memberService.selectById(id);
+		model.addAttribute("memberVO", memberVO);
+		return "/member/update";
+	}
+	@RequestMapping(value = "/mup/{id}", method = RequestMethod.POST)
+	public String update(MemberVO memberVO, SessionStatus sessionStatus, String pwd) {
+		if(memberVO.getPwd() != pwd) {
+			return "redirect:/main";
+		}
+		MemberVO memberVODB = memberService.selectById(memberVO.getId());
+		String salt = memberVODB.getSalt();
+		String tmp = pwd;
+		String npwd = Salt.getEncrypt(tmp, salt);
+		if(!npwd.equals(memberVODB.getPwd())) {
+			return "redirect:/main";
+		}
+		memberService.update(memberVO);
+		sessionStatus.setComplete();
+		return "redirect:/main";
 	}
 }
