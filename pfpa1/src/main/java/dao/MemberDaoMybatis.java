@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import common.utils.Criteria;
 import domain.MemberVO;
 
 @Repository
@@ -26,5 +29,13 @@ public class MemberDaoMybatis implements MemberDao {
 	public MemberVO selectById(String id) {
 		MemberVO memberVO = (MemberVO)sqlSessionTemplate.selectOne("memberDao.selectById", id);
 		return memberVO;
+	}
+	@Override
+	public int count() {
+		return sqlSessionTemplate.selectOne("memberDao.count");
+	}
+	@Override
+	public List<MemberVO> list(Criteria criteria) {
+		return sqlSessionTemplate.selectList("memberDao.list", criteria);
 	}
 }

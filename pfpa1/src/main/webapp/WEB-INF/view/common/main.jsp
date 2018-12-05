@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 </head>
 <body>
 this is main page<br>
@@ -16,6 +17,7 @@ this is main page<br>
 <c:if test="${!empty loginVO }">
 	${loginVO.id}<br>
 	<a href="<c:url value="/lou"/>">로그아웃</a><br>
+	<a href="<c:url value="/mli"/>">회원목록</a><br>
 </c:if>
 </body>
 </html>

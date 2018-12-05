@@ -13,9 +13,23 @@
 		</selectKey>
 	</insert>
 	<select id="countById" resultType="Integer">
-		select count(id) from member where id = #{id}
+		select count (id) from member where id = #{id}
 	</select>
 	<select id="selectById" parameterType="String" resultType="memberVO">
 		select * from member where id = #{id}
+	</select>
+	<select id="count" resultType="Integer">
+		select count (no) from member
+	</select>
+	<select id="list" resultType="memberVO">
+		<![CDATA[
+		select * from 
+			(select * from 
+				(select 
+					rownum rn, no, id, pwd, salt, name, email, tel, ceph, poco, addr, daddr, poin, sum, rank, regd 
+				from member order by no desc) 
+			where rn <= #{end}) 
+		where rn >= #{start}
+		]]>
 	</select>
 </mapper>
