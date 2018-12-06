@@ -65,6 +65,7 @@
 			<td colspan="2">
 				<a href="<c:url value="/mup/${id}"/>">Edit</a>
 				<a href="<c:url value="/mde/${id}"/>">Delete</a>
+				<a href="<c:url value="/mli"/>">List</a>
 				<a href="<c:url value="/main"/>">Main</a>
 			</td>
 		</tr>
