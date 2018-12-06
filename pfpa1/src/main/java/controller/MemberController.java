@@ -35,7 +35,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/min", method = RequestMethod.POST)
 	public String insert(MemberVO memberVO) {
-		if(!memberVO.getPwd().equals(memberVO.getCpwd())) {
+		if(!memberVO.getPwd().equals(memberVO.getCpwd())) { 
 			return "redirect:/min";
 		}
 		String salt = Salt.generateSalt();
