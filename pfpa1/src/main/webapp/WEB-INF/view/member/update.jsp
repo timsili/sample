@@ -50,6 +50,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="Edit">
+					<a href="<c:url value="/mse/${id}"/>">Cancel</a>
 					<a href="<c:url value="/main"/>">Main</a><br>
 				</td>
 			</tr>

@@ -32,7 +32,10 @@
 				<td><input type="checkbox" name="policy" value="true">동의함</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="Next"></td>
+				<td colspan="2">
+					<input type="submit" value="Next">
+					<a href="<c:url value="/main"/>">Main</a><br>
+				</td>
 			</tr>
 		</table>
 	</form>
