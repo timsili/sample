@@ -26,6 +26,7 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:mybatis/sqlmap-member.xml</value>
+				<value>classpath:mybatis/sqlmap-product.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -37,5 +38,11 @@
 	</bean>
 	<bean id="memberServiceImpl" class="service.MemberServiceImpl">
 		<property name="memberDao" ref="memberDao"/>
+	</bean>
+	<bean id="productDao" class="dao.ProductDaoMybatis">
+		<constructor-arg ref="sqlSessionTemplate"/>
+	</bean>
+	<bean id="productServiceImpl" class="service.ProductServiceImpl">
+		<property name="productDao" ref="productDao"/>
 	</bean>
 </beans>

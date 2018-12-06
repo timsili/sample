@@ -24,5 +24,7 @@ this is main page<br>
 		<a href="<c:url value="/mli"/>">회원목록</a><br>
 	</c:if>
 </c:if>
+<a href="<c:url value="/pli"/>">물품목록</a><br>
+<a href="<c:url value="/pin"/>">물품등록</a><br>
 </body>
 </html>
