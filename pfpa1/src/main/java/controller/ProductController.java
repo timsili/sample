@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import common.utils.Criteria;
+import common.utils.Pagination;
 import domain.LoginVO;
 import domain.ProductVO;
 import service.ProductService;
@@ -77,5 +79,28 @@ public class ProductController {
 		productVO.setCndes(changedFiles.toString());
 		productService.insert(productVO);
 		return "redirect:/main";
+	}
+	@RequestMapping(value = "/pli")
+	public String list(Model model, Criteria criteria) {
+		Pagination pagination = new Pagination();
+		pagination.setCriteria(criteria);
+		pagination.setCount(productService.countActive());
+		model.addAttribute("productList", productService.listActive(criteria));
+		model.addAttribute("pagination", pagination);
+		return "/product/list";
+	}
+	@RequestMapping(value = "/apl")
+	public String adminList(LoginVO loginVO, Model model, Criteria criteria, HttpSession session) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
+			return "redirect:/main";
+		}
+		Pagination pagination = new Pagination();
+		pagination.setCriteria(criteria);
+		pagination.setCount(productService.countAll());
+		model.addAttribute("productList", productService.listAll(criteria));
+		model.addAttribute("pagination", pagination);
+		return "/product/alist";
 	}
 }

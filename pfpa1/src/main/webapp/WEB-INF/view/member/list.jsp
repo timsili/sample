@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Member List</title>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<title>Member List</title>
 </head>
 <body>
 	<a href="<c:url value="/main"/>">Main</a><br>
