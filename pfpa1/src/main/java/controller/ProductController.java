@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,5 +103,20 @@ public class ProductController {
 		model.addAttribute("productList", productService.listAll(criteria));
 		model.addAttribute("pagination", pagination);
 		return "/product/alist";
+	}
+	@RequestMapping(value = "/pse/{no}")
+	public String selectTA(Model model, @PathVariable int no) {
+		model.addAttribute("productVO", productService.selectByNoTA(no));
+		return "/product/select";
+	}
+	@RequestMapping(value = "/aps/{no}")
+	public String selectFA(LoginVO loginVO, Model model, HttpSession session, @PathVariable int no) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
+			return "redirect:/main";
+		}
+		model.addAttribute("productVO", productService.selectByNoFA(no));
+		return "/product/aselect";
 	}
 }

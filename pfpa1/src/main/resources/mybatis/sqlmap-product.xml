@@ -25,4 +25,10 @@
 		select * from (select * from (select rownum rn, no, item, cate, ontn, cntn, pric, opti, proop, ondes, cndes, stock, regd from product where acti = 1 order by no desc) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
+	<select id="selectByNoTA" resultType="productVO">
+		select no, item, cate, cntn, pric, opti, proop, cndes, stock from product where no = #{no}
+	</select>
+	<select id="selectByNoFA" resultType="productVO">
+		select * from product where no = #{no}
+	</select>
 </mapper>

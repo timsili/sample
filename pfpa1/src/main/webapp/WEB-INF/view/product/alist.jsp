@@ -22,7 +22,7 @@
 		<c:forEach var="p" items="${productList}">
 			<tr>
 				<td>${p.no}</td>
-				<td><a href="<c:url value="/mse/${p.no}"/>">${p.item}</a></td>
+				<td><a href="<c:url value="/aps/${p.no}"/>">${p.item}</a></td>
 				<td>${p.cate}</td>
 				<td height="100px"><img src="${path}/images/${p.item}/${p.cntn}" 
 					style="width: auto;height: auto; 
@@ -33,13 +33,13 @@
 		</c:forEach>
 	</table>
 	<c:if test="${pagination.prev}">
-		<a href="${path}/pli?page=${pagination.start-1}">prev</a>
+		<a href="${path}/apl?page=${pagination.start-1}">prev</a>
 	</c:if>
 	<c:forEach begin="${pagination.start}" end="${pagination.end}" var="nm">
-		<a href="${path}/pli?page=${nm}">${nm}</a>
+		<a href="${path}/apl?page=${nm}">${nm}</a>
 	</c:forEach>
 	<c:if test="${pagination.next}">
-		<a href="${path}/pli?page=${pagination.end+1}">next</a>
+		<a href="${path}/apl?page=${pagination.end+1}">next</a>
 	</c:if>
 </body>
 </html>

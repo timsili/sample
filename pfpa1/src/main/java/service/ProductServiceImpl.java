@@ -37,4 +37,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> listActive(Criteria criteria) {
 		return productDao.listActive(criteria);
 	}
+	@Override
+	public ProductVO selectByNoTA(int no) {
+		return productDao.selectByNoTA(no);
+	}
+	@Override
+	public ProductVO selectByNoFA(int no) {
+		return productDao.selectByNoFA(no);
+	}
 }

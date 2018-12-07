@@ -11,4 +11,6 @@ public interface ProductService {
 	public abstract int countActive();
 	public abstract List<ProductVO> listAll(Criteria criteria);
 	public abstract List<ProductVO> listActive(Criteria criteria);
+	public abstract ProductVO selectByNoTA(int no);	// To All
+	public abstract ProductVO selectByNoFA(int no);	// For Admin
 }
