@@ -170,6 +170,40 @@ public class ProductController {
 			productVO.setCndes(changedFiles.toString());
 		}
 		productService.update(productVO);
-		return "redirect:/main";
+		return "redirect:/apl";
+	}
+	@RequestMapping(value = "/pde/{no}", method = RequestMethod.GET)
+	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable int no) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
+			return "redirect:/main";
+		}
+		ProductVO productVO = productService.selectByNoFA(no);
+		model.addAttribute("productVO", productVO);
+		return "/product/delete";
+	}
+	@RequestMapping(value = "/pde/{no}", method = RequestMethod.POST)
+	public String delete(LoginVO loginVO, ProductVO productVO, HttpSession session, String pwd) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(!loginVO.getPwd().equals(pwd)) {
+			return "redirect:/pde/{no}";
+		}
+		String imagesFolder = "C:/Users/GC/Desktop/images";
+		String folderName = productVO.getItem();
+		String savePath = imagesFolder+"/"+folderName+"/";
+		File folder = new File(savePath);
+		if(folder.exists()) {
+			String files[] = folder.list();
+			for(int i=0;i<files.length;i++) {
+				String fileName=files[i];
+				String fpath=folder.getPath()+"/"+fileName;
+				File fof = new File(fpath);
+				fof.delete();
+			}
+		}
+		folder.delete();
+		productService.delete(folderName);
+		return "redirect:/apl";
 	}
 }
