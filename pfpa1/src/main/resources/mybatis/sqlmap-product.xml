@@ -9,4 +9,20 @@
 			select nvl (max(no), 0) from product
 		</selectKey>
 	</insert>
+	<select id="countAll" resultType="Integer">
+		select count (*) from product
+	</select>
+	<select id="countActive" resultType="Integer">
+		select count (*) from product where acti = 1
+	</select>
+	<select id="listAll" resultType="productVO">
+		<![CDATA[
+		select * from (select * from (select rownum rn, no, item, cate, ontn, cntn, pric, opti, proop, ondes, cndes, stock, regd, acti from product order by no desc) where rn <= #{end}) where rn >= #{start}
+		]]>
+	</select>
+	<select id="listActive" resultType="productVO">
+		<![CDATA[
+		select * from (select * from (select rownum rn, no, item, cate, ontn, cntn, pric, opti, proop, ondes, cndes, stock, regd from product where acti = 1 order by no desc) where rn <= #{end}) where rn >= #{start}
+		]]>
+	</select>
 </mapper>

@@ -12,4 +12,5 @@
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/view/" />
 	</mvc:view-resolvers>
+	<mvc:resources location="file:///C:/Users/GC/Desktop/images/" mapping="/images/**" />
 </beans>

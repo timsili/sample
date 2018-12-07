@@ -1,7 +1,10 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import common.utils.Criteria;
 import dao.ProductDao;
 import domain.ProductVO;
 
@@ -17,5 +20,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insert(ProductVO productVO) {
 		productDao.insert(productVO);
+	}
+	@Override
+	public int countAll() {
+		return productDao.countAll();
+	}
+	@Override
+	public int countActive() {
+		return productDao.countActive();
+	}
+	@Override
+	public List<ProductVO> listAll(Criteria criteria) {
+		return productDao.listAll(criteria);
+	}
+	@Override
+	public List<ProductVO> listActive(Criteria criteria) {
+		return productDao.listActive(criteria);
 	}
 }
