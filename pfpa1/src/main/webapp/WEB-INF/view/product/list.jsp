@@ -21,7 +21,7 @@
 		<c:forEach var="p" items="${productList}">
 			<tr>
 				<td>${p.no}</td>
-				<td><a href="<c:url value="/mse/${p.no}"/>">${p.item}</a></td>
+				<td><a href="<c:url value="/pse/${p.no}"/>">${p.item}</a></td>
 				<td>${p.cate}</td>
 				<td height="100px"><img src="${path}/images/${p.item}/${p.cntn}" 
 					style="width: auto;height: auto; 

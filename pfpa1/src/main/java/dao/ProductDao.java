@@ -11,4 +11,8 @@ public interface ProductDao {
 	public abstract int countActive();
 	public abstract List<ProductVO> listAll(Criteria criteria);
 	public abstract List<ProductVO> listActive(Criteria criteria);
+	public abstract ProductVO selectByNoTA(int no);
+	public abstract ProductVO selectByNoFA(int no);
+	public abstract int update(ProductVO productVO);
+	public abstract int delete(String item);
 }

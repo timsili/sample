@@ -37,4 +37,22 @@ public class ProductDaoMybatis implements ProductDao {
 	public List<ProductVO> listActive(Criteria criteria) {
 		return sqlSessionTemplate.selectList("productDao.listActive", criteria);
 	}
+	@Override
+	public ProductVO selectByNoTA(int no) {
+		ProductVO productVO = (ProductVO)sqlSessionTemplate.selectOne("productDao.selectByNoTA", no);
+		return productVO;
+	}
+	@Override
+	public ProductVO selectByNoFA(int no) {
+		ProductVO productVO = (ProductVO)sqlSessionTemplate.selectOne("productDao.selectByNoFA", no);
+		return productVO;
+	}
+	@Override
+	public int update(ProductVO productVO) {
+		return sqlSessionTemplate.update("productDao.update", productVO);
+	}
+	@Override
+	public int delete(String item) {
+		return sqlSessionTemplate.delete("productDao.delete", item);
+	}
 }
