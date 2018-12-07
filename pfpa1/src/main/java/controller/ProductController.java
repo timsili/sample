@@ -181,11 +181,11 @@ public class ProductController {
 		}
 		ProductVO productVO = productService.selectByNoFA(no);
 		model.addAttribute("productVO", productVO);
+		model.addAttribute("loginVO", loginVO);
 		return "/product/delete";
 	}
 	@RequestMapping(value = "/pde/{no}", method = RequestMethod.POST)
 	public String delete(LoginVO loginVO, ProductVO productVO, HttpSession session, String pwd) {
-		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(!loginVO.getPwd().equals(pwd)) {
 			return "redirect:/pde/{no}";
 		}
