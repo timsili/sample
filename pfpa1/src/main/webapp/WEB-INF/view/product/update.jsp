@@ -45,7 +45,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="Regist">
-					<a href="<c:url value="/ppr"/>">Preview</a>
+					<a href="<c:url value="/aps/${no}"/>">Cancel</a>
 					<a href="<c:url value="/main"/>">Main</a>
 				</td>
 			</tr>
