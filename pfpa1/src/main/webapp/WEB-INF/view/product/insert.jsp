@@ -9,7 +9,7 @@
 <title>Product Registration</title>
 </head>
 <body>
-	<form:form commandName="productVO" method="POST">
+	<form:form commandName="productVO" method="POST" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<th><form:label path="item">Item</form:label></th>
@@ -33,7 +33,10 @@
 			</tr>
 			<tr>
 				<th><form:label path="descr">Description</form:label></th>
-				<td><form:input path="descr"/></td>
+				<td>
+					<input type="file" name="descr" multiple="multiple"><br>
+					first photo gonna thumb nail
+				</td>
 			</tr>
 			<tr>
 				<th><form:label path="stock">Stock</form:label></th>

@@ -45,4 +45,5 @@
 	<bean id="productServiceImpl" class="service.ProductServiceImpl">
 		<property name="productDao" ref="productDao"/>
 	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>

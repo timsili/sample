@@ -4,7 +4,7 @@
 
 <mapper namespace="productDao">
 	<insert id="insert">
-		insert into product (no, item, cate, pric, opti, proop, descr, stock, regd, acti) values (product_seq.nextval, #{item}, #{cate}, #{pric}, #{opti}, #{proop}, #{descr}, #{stock}, systimestamp, 0)
+		insert into product (no, item, cate, ontn, cntn, pric, opti, proop, ondes, cndes, stock, regd, acti) values (product_seq.nextval, #{item}, #{cate}, #{ontn}, #{cntn}, #{pric}, #{opti}, #{proop}, #{ondes}, #{cndes}, #{stock}, systimestamp, 0)
 		<selectKey keyProperty="no" resultType="Integer">
 			select nvl (max(no), 0) from product
 		</selectKey>
