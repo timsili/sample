@@ -13,4 +13,6 @@ public interface ProductService {
 	public abstract List<ProductVO> listActive(Criteria criteria);
 	public abstract ProductVO selectByNoTA(int no);	// To All
 	public abstract ProductVO selectByNoFA(int no);	// For Admin
+	public abstract int update(ProductVO productVO);
+	public abstract int delete(String item);
 }

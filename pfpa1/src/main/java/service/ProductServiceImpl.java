@@ -45,4 +45,12 @@ public class ProductServiceImpl implements ProductService {
 	public ProductVO selectByNoFA(int no) {
 		return productDao.selectByNoFA(no);
 	}
+	@Override
+	public int update(ProductVO productVO) {
+		return productDao.update(productVO);
+	}
+	@Override
+	public int delete(String item) {
+		return productDao.delete(item);
+	}
 }
