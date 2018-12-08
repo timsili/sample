@@ -46,4 +46,8 @@ public class MemberDaoMybatis implements MemberDao {
 	public int delete(String id) {
 		return sqlSessionTemplate.delete("memberDao.delete", id);
 	}
+	@Override
+	public String getSalt(String id) {
+		return sqlSessionTemplate.selectOne("memberDao.getSalt", id);
+	}
 }

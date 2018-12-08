@@ -45,4 +45,8 @@ public class MemberServiceImpl implements MemberService {
 	public int delete(String id) {
 		return memberDao.delete(id);
 	}
+	@Override
+	public String getSalt(String id) {
+		return memberDao.getSalt(id);
+	}
 }

@@ -43,6 +43,13 @@
 				<td><form:input path="stock"/></td>
 			</tr>
 			<tr>
+				<th><form:label path="acti">Active</form:label></th>
+				<td>
+					Active: <form:radiobutton path="acti" value="1"/>&nbsp;
+					Inactive: <form:radiobutton path="acti" value="0"/>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2">
 					<input type="submit" value="Regist">
 					<a href="<c:url value="/aps/${no}"/>">Cancel</a>

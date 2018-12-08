@@ -40,7 +40,12 @@
 		</tr>
 		<tr>
 			<th>description</th>
-			<td>${productVO.cndes}</td>
+			<td>
+				<c:forEach var="d" items="${descrList}">
+					<img src="${path}/images/${productVO.item}/${d}"
+						style="width: auto; height: auto; max-width: 200px;"><br>
+				</c:forEach>
+			</td>
 		</tr>
 		<tr>
 			<th>stock</th>

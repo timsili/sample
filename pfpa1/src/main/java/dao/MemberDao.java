@@ -13,4 +13,5 @@ public interface MemberDao {
 	public abstract List<MemberVO> list(Criteria criteria);
 	public abstract int update(MemberVO memberVO);
 	public abstract int delete(String id);
+	public abstract String getSalt(String id);
 }

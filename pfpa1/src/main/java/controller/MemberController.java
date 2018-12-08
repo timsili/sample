@@ -134,30 +134,36 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.GET)
-	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
-		loginVO = (LoginVO)session.getAttribute("loginVO");
-		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
+	public String delete(Model model, HttpSession session, @PathVariable String id) {
+		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
 			return "redirect:/main";
 		}
-		model.addAttribute("loginVO", loginVO);
+		MemberVO memberVO = memberService.selectById(id);
+		model.addAttribute("memberVO", memberVO);
 		return "/member/delete";
 	}
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.POST)
-	public String delete(LoginVO loginVO, SessionStatus sessionStatus, @PathVariable String id, String pwd) {
-		MemberVO memberVODB = memberService.selectById(loginVO.getId());
-		if(loginVO.getPwd().equals(pwd)) {
-			return "redirect:/main";
-		}
-		String salt = memberVODB.getSalt();
+	public String delete(MemberVO memberVO, HttpSession session, @PathVariable String id, String pwd) {
+		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+		String salt = memberService.getSalt(id);
 		String tmp = pwd;
 		String npwd = Salt.getEncrypt(tmp, salt);
+		MemberVO memberVODB = memberService.selectById(id);
+		if(loginVO.getId().equals("admin")) {
+			MemberVO memberVOLogin = memberService.selectById(loginVO.getId());
+			String adminSalt = memberService.getSalt(loginVO.getId());
+			String apwd = Salt.getEncrypt(tmp, adminSalt);
+			if(!memberVOLogin.getPwd().equals(apwd)) {
+				return "redirect:/mde/{id}";
+			}
+			memberService.delete(id);
+			return "redirect:/mli";
+		}
 		if(!memberVODB.getPwd().equals(npwd)) {
-			return "redirect:/main";
+			return "redirect:/mde/{id}";
 		}
 		memberService.delete(id);
-		if(!loginVO.getId().equals("admin")) {
-			return "redirect:/lou";
-		}
-		return "redirect:/main";
+		return "redirect:/lou";
 	}
 }

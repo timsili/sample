@@ -9,15 +9,15 @@
 <title>Member Delete</title>
 </head>
 <body>
-	<form:form commandName="loginVO" method="POST">
+	<form:form commandName="memberVO" method="POST">
 		<table border="1">
 			<tr>
 				<th><form:label path="id">id</form:label></th>
-				<td><form:input path="id"/></td>
+				<td><form:input path="id" readonly="true"/></td>
 			</tr>
 			<tr>
-				<th><form:label path="pwd">pwd</form:label></th>
-				<td><input type="password" id="pwd" name="pwd"/></td>
+				<th>Password</th>
+				<td><input type="password" name="pwd"/></td>
 			</tr>
 			<tr>
 				<td colspan="2">

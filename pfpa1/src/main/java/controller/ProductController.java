@@ -106,7 +106,11 @@ public class ProductController {
 	}
 	@RequestMapping(value = "/pse/{no}")
 	public String selectTA(Model model, @PathVariable int no) {
-		model.addAttribute("productVO", productService.selectByNoTA(no));
+		ProductVO productVO = productService.selectByNoTA(no);
+		String destmp = productVO.getCndes();
+		String[] descr = destmp.substring(1, destmp.length()-1).split(", ");
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("descrList", descr);
 		return "/product/select";
 	}
 	@RequestMapping(value = "/aps/{no}")
@@ -116,7 +120,11 @@ public class ProductController {
 			System.out.println("need login");
 			return "redirect:/main";
 		}
-		model.addAttribute("productVO", productService.selectByNoFA(no));
+		ProductVO productVO = productService.selectByNoFA(no);
+		String destmp = productVO.getCndes();
+		String[] descr = destmp.substring(1, destmp.length()-1).split(", ");
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("descrList", descr);
 		return "/product/aselect";
 	}
 	@RequestMapping(value = "/pup/{no}", method = RequestMethod.GET)
@@ -147,20 +155,25 @@ public class ProductController {
 		List<String> originalFiles = new ArrayList<String>();
 		List<String> changedFiles = new ArrayList<String>();
 		if(!descriptFile.get(0).getOriginalFilename().isEmpty()) {
-			if(descriptFile != null && descriptFile.size() > 0) {
-				for(MultipartFile mf : descriptFile) {
-					String ofn = mf.getOriginalFilename();
-					String fex = ofn.substring(ofn.lastIndexOf("."));
-					String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-					String sfn = uuid + fex;
-					String tsf = savePath + sfn;
-					byte[] fileData = mf.getBytes();
-					FileOutputStream fos = new FileOutputStream(tsf);
-					fos.write(fileData);
-					fos.close();
-					originalFiles.add(ofn);
-					changedFiles.add(sfn);
-				}
+			String files[] = folder.list();
+			for(int i=0;i<files.length;i++) {
+				String fileName=files[i];
+				String fpath=folder.getPath()+"/"+fileName;
+				File fof = new File(fpath);
+				fof.delete();
+			}
+			for(MultipartFile mf : descriptFile) {
+				String ofn = mf.getOriginalFilename();
+				String fex = ofn.substring(ofn.lastIndexOf("."));
+				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+				String sfn = uuid + fex;
+				String tsf = savePath + sfn;
+				byte[] fileData = mf.getBytes();
+				FileOutputStream fos = new FileOutputStream(tsf);
+				fos.write(fileData);
+				fos.close();
+				originalFiles.add(ofn);
+				changedFiles.add(sfn);
 			}
 			productVO.setOntn(originalFiles.get(0).toString());
 			productVO.setCntn(changedFiles.get(0).toString());
@@ -181,11 +194,11 @@ public class ProductController {
 		}
 		productVO = productService.selectByNoFA(no);
 		model.addAttribute("productVO", productVO);
+		model.addAttribute("loginVO", loginVO);
 		return "/product/delete";
 	}
 	@RequestMapping(value = "/pde/{no}", method = RequestMethod.POST)
 	public String delete(LoginVO loginVO, ProductVO productVO, HttpSession session, String pwd) {
-		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(!loginVO.getPwd().equals(pwd)) {
 			return "redirect:/pde/{no}";
 		}
