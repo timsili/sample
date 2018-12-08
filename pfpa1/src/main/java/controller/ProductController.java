@@ -155,20 +155,25 @@ public class ProductController {
 		List<String> originalFiles = new ArrayList<String>();
 		List<String> changedFiles = new ArrayList<String>();
 		if(!descriptFile.get(0).getOriginalFilename().isEmpty()) {
-			if(descriptFile != null && descriptFile.size() > 0) {
-				for(MultipartFile mf : descriptFile) {
-					String ofn = mf.getOriginalFilename();
-					String fex = ofn.substring(ofn.lastIndexOf("."));
-					String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-					String sfn = uuid + fex;
-					String tsf = savePath + sfn;
-					byte[] fileData = mf.getBytes();
-					FileOutputStream fos = new FileOutputStream(tsf);
-					fos.write(fileData);
-					fos.close();
-					originalFiles.add(ofn);
-					changedFiles.add(sfn);
-				}
+			String files[] = folder.list();
+			for(int i=0;i<files.length;i++) {
+				String fileName=files[i];
+				String fpath=folder.getPath()+"/"+fileName;
+				File fof = new File(fpath);
+				fof.delete();
+			}
+			for(MultipartFile mf : descriptFile) {
+				String ofn = mf.getOriginalFilename();
+				String fex = ofn.substring(ofn.lastIndexOf("."));
+				String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+				String sfn = uuid + fex;
+				String tsf = savePath + sfn;
+				byte[] fileData = mf.getBytes();
+				FileOutputStream fos = new FileOutputStream(tsf);
+				fos.write(fileData);
+				fos.close();
+				originalFiles.add(ofn);
+				changedFiles.add(sfn);
 			}
 			productVO.setOntn(originalFiles.get(0).toString());
 			productVO.setCntn(changedFiles.get(0).toString());
@@ -177,7 +182,6 @@ public class ProductController {
 			productVO.setOndes(originalFiles.toString());
 			productVO.setCndes(changedFiles.toString());
 		}
-		System.out.println(productVO.getActi());
 		productService.update(productVO);
 		return "redirect:/apl";
 	}
