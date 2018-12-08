@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,7 +31,7 @@ public class QnaController {
 	public String insert(LoginVO loginVO, Model model, HttpSession session) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null) {
-			return "redirect:/main";
+			return "redirect:/qli";
 		}
 		QnaVO qnaVO = new QnaVO();
 		qnaVO.setWrit(loginVO.getId());
@@ -53,7 +54,7 @@ public class QnaController {
 		qnaVO.setPwd(npwd);
 		qnaVO.setRef(qnaService.getRef());
 		qnaService.insert(qnaVO);
-		return "redirect:/main";
+		return "redirect:/qli";
 	}
 	@RequestMapping(value = "/qli")
 	public String list(LoginVO loginVO, Model model, Criteria criteria) {
@@ -63,5 +64,15 @@ public class QnaController {
 		model.addAttribute("qnaList", qnaService.list(criteria));
 		model.addAttribute("pagination", pagination);
 		return "/qna/list";
+	}
+	@RequestMapping(value = "/qse/{no}")
+	public String select(LoginVO loginVO, QnaVO qnaVO, Model model, HttpSession session, @PathVariable int no) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		qnaVO = qnaService.selectByNo(no);
+		if(loginVO == null || !qnaVO.getWrit().equals(loginVO.getId()) && !loginVO.getId().equals("admin")) {
+			return "redirect:/qli";
+		}
+		model.addAttribute("qnaVO", qnaService.selectByNo(no));
+		return "/qna/select";
 	}
 }

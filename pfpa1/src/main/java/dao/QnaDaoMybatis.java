@@ -34,4 +34,9 @@ public class QnaDaoMybatis implements QnaDao {
 	public List<ProductVO> list(Criteria criteria) {
 		return sqlSessionTemplate.selectList("qnaDao.list", criteria);
 	}
+	@Override
+	public QnaVO selectByNo(int no) {
+		QnaVO qnaVO = (QnaVO)sqlSessionTemplate.selectOne("qnaDao.selectByNo", no);
+		return qnaVO;
+	}
 }

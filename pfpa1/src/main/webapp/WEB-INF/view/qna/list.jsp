@@ -21,7 +21,7 @@
 		<c:forEach var="q" items="${qnaList}" varStatus="loop">
 			<tr>
 				<td>${q.no}</td>
-				<td>${q.title}</td>
+				<td><a href="<c:url value="/qse/${q.no}"/>">${q.title}</a></td>
 				<td>${q.writ}</td>
 				<td>${q.rcnt}</td>
 				<td>${q.regd}</td>

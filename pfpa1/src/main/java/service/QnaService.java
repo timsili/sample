@@ -11,4 +11,5 @@ public interface QnaService {
 	public abstract int getRef();
 	public abstract int count();
 	public abstract List<ProductVO> list(Criteria criteria);
+	public abstract QnaVO selectByNo(int no);
 }
