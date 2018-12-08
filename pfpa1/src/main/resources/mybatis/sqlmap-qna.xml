@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qnaDao">
+	<insert id="insert" parameterType="qnaVO">
+		insert into qna (no, writ, title, pwd, cont, rcnt, ref, step, regd)
+		values (qna_seq.nextval, #{writ}, #{title}, #{pwd}, #{cont}, 0, #{ref}, 0, systimestamp)
+		<selectKey keyProperty="no" resultType="Integer">
+			select nvl (max(no), 0) from qna
+		</selectKey>
+	</insert>
+	<select id="getRef" resultType="Integer">
+		select nvl(max(no)+1, 1) from qna
+	</select>
+</mapper>

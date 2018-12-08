@@ -58,15 +58,15 @@ public class MemberController {
 		return "/common/login";
 	}
 	@RequestMapping(value = "/lin", method = RequestMethod.POST)
-	public String login(LoginVO loginVO, HttpSession session, HttpServletResponse resp) {
+	public String login(LoginVO loginVO, MemberVO memberVO, HttpSession session, HttpServletResponse resp) {
 		if(memberService.countById(loginVO.getId()) <= 0) {
 			return "redirect:/lin";
 		}
-		MemberVO memberVO = memberService.selectById(loginVO.getId());
+		memberVO = memberService.selectById(loginVO.getId());
 		String salt = memberVO.getSalt();
 		String tmp = loginVO.getPwd();
 		String npwd = Salt.getEncrypt(tmp, salt);
-		if(!npwd.equals(memberVO.getPwd())) {
+		if(!memberVO.getPwd().equals(npwd)) {
 			return "redirect:/lin";
 		}
 		session.setAttribute("loginVO", loginVO);
@@ -108,25 +108,25 @@ public class MemberController {
 		return "/member/select";
 	}
 	@RequestMapping(value = "/mup/{id}", method = RequestMethod.GET)
-	public String update(Model model, HttpSession session, @PathVariable String id) {
-		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+	public String update(LoginVO loginVO, MemberVO memberVO, Model model, HttpSession session, @PathVariable String id) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
 			return "redirect:/main";
 		}
-		MemberVO memberVO = memberService.selectById(id);
+		memberVO = memberService.selectById(id);
 		model.addAttribute("memberVO", memberVO);
 		return "/member/update";
 	}
 	@RequestMapping(value = "/mup/{id}", method = RequestMethod.POST)
 	public String update(MemberVO memberVO, SessionStatus sessionStatus, String pwd) {
-		if(memberVO.getPwd() != pwd) {
+		if(!memberVO.getPwd().equals(pwd)) {
 			return "redirect:/main";
 		}
 		MemberVO memberVODB = memberService.selectById(memberVO.getId());
 		String salt = memberVODB.getSalt();
 		String tmp = pwd;
 		String npwd = Salt.getEncrypt(tmp, salt);
-		if(!npwd.equals(memberVODB.getPwd())) {
+		if(!memberVODB.getPwd().equals(npwd)) {
 			return "redirect:/main";
 		}
 		memberService.update(memberVO);
@@ -134,8 +134,8 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.GET)
-	public String delete(Model model, HttpSession session, @PathVariable String id) {
-		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
 			return "redirect:/main";
 		}
@@ -145,13 +145,13 @@ public class MemberController {
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.POST)
 	public String delete(LoginVO loginVO, SessionStatus sessionStatus, @PathVariable String id, String pwd) {
 		MemberVO memberVODB = memberService.selectById(loginVO.getId());
-		if(loginVO.getPwd() != pwd) {
+		if(loginVO.getPwd().equals(pwd)) {
 			return "redirect:/main";
 		}
 		String salt = memberVODB.getSalt();
 		String tmp = pwd;
 		String npwd = Salt.getEncrypt(tmp, salt);
-		if(!npwd.equals(memberVODB.getPwd())) {
+		if(!memberVODB.getPwd().equals(npwd)) {
 			return "redirect:/main";
 		}
 		memberService.delete(id);
