@@ -13,4 +13,12 @@
 	<select id="getRef" resultType="Integer">
 		select nvl(max(no)+1, 1) from qna
 	</select>
+	<select id="count" resultType="Integer">
+		select count (no) from qna
+	</select>
+	<select id="list" resultType="qnaVO">
+		<![CDATA[
+		select * from (select * from (select rownum rn, no, writ, title, pwd, cont, rcnt, ref, step, regd from qna order by ref desc, step asc) where rn <= #{end}) where rn >= #{start}
+		]]>
+	</select>
 </mapper>
