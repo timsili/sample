@@ -134,8 +134,8 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.GET)
-	public String delete(Model model, HttpSession session, @PathVariable String id) {
-		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null) {
 			return "redirect:/main";
 		}
@@ -144,8 +144,8 @@ public class MemberController {
 		return "/member/delete";
 	}
 	@RequestMapping(value = "/mde/{id}", method = RequestMethod.POST)
-	public String delete(MemberVO memberVO, HttpSession session, @PathVariable String id, String pwd) {
-		LoginVO loginVO = (LoginVO)session.getAttribute("loginVO");
+	public String delete(LoginVO loginVO, MemberVO memberVO, HttpSession session, @PathVariable String id, String pwd) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
 		String salt = memberService.getSalt(id);
 		String tmp = pwd;
 		String npwd = Salt.getEncrypt(tmp, salt);
