@@ -32,7 +32,7 @@
 		select * from product where no = #{no}
 	</select>
 	<update id="update" parameterType="productVO">
-		update product set cate = #{cate}, ontn = #{ontn}, cntn = #{cntn}, pric = #{pric}, opti = #{opti}, proop = #{proop}, ondes = #{ondes}, cndes = #{cndes}, stock = #{stock} where item = #{item}
+		update product set cate = #{cate}, ontn = #{ontn}, cntn = #{cntn}, pric = #{pric}, opti = #{opti}, proop = #{proop}, ondes = #{ondes}, cndes = #{cndes}, stock = #{stock}, acti = #{acti} where item = #{item}
 	</update>
 	<delete id="delete" parameterType="String">
 		delete from product where item = #{item}

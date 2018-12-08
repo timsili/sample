@@ -106,7 +106,11 @@ public class ProductController {
 	}
 	@RequestMapping(value = "/pse/{no}")
 	public String selectTA(Model model, @PathVariable int no) {
-		model.addAttribute("productVO", productService.selectByNoTA(no));
+		ProductVO productVO = productService.selectByNoTA(no);
+		String destmp = productVO.getCndes();
+		String[] descr = destmp.substring(1, destmp.length()-1).split(", ");
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("descrList", descr);
 		return "/product/select";
 	}
 	@RequestMapping(value = "/aps/{no}")
@@ -116,7 +120,11 @@ public class ProductController {
 			System.out.println("need login");
 			return "redirect:/main";
 		}
-		model.addAttribute("productVO", productService.selectByNoFA(no));
+		ProductVO productVO = productService.selectByNoFA(no);
+		String destmp = productVO.getCndes();
+		String[] descr = destmp.substring(1, destmp.length()-1).split(", ");
+		model.addAttribute("productVO", productVO);
+		model.addAttribute("descrList", descr);
 		return "/product/aselect";
 	}
 	@RequestMapping(value = "/pup/{no}", method = RequestMethod.GET)
@@ -169,6 +177,7 @@ public class ProductController {
 			productVO.setOndes(originalFiles.toString());
 			productVO.setCndes(changedFiles.toString());
 		}
+		System.out.println(productVO.getActi());
 		productService.update(productVO);
 		return "redirect:/apl";
 	}

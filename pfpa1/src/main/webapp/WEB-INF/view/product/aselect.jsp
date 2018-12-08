@@ -40,7 +40,12 @@
 		</tr>
 		<tr>
 			<th>description</th>
-			<td>${productVO.cndes}</td>
+			<td>
+				<c:forEach var="d" items="${descrList}">
+					<img src="${path}/images/${productVO.item}/${d}"
+						style="width: auto; height: auto; max-width: 200px;"><br>
+				</c:forEach>
+			</td>
 		</tr>
 		<tr>
 			<th>stock</th>
@@ -58,7 +63,7 @@
 			<td colspan="2">
 				<a href="<c:url value="/pup/${no}"/>">Edit</a>
 				<a href="<c:url value="/pde/${no}"/>">Delete</a>
-				<a href="<c:url value="/pli"/>">List</a>
+				<a href="<c:url value="/apl"/>">List</a>
 				<a href="<c:url value="/main"/>">Main</a>
 			</td>
 		</tr>
