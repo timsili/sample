@@ -30,7 +30,7 @@ public class ProductVO {
 	private String cndes;
 	private int stock;
 //	active or inactive
-	private int acti;
+	private String acti;
 //	registration date
 	private Timestamp regd;
 	public int getNo() {
@@ -105,10 +105,10 @@ public class ProductVO {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	public int getActi() {
+	public String getActi() {
 		return acti;
 	}
-	public void setActi(int acti) {
+	public void setActi(String acti) {
 		this.acti = acti;
 	}
 	public Timestamp getRegd() {
