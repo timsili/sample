@@ -91,7 +91,7 @@ public class ProductController {
 		return "/product/list";
 	}
 	@RequestMapping(value = "/apl")
-	public String adminList(LoginVO loginVO, Model model, Criteria criteria, HttpSession session) {
+	public String adminList(LoginVO loginVO, Model model, HttpSession session, Criteria criteria) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
 			System.out.println("need login");
@@ -128,13 +128,13 @@ public class ProductController {
 		return "/product/aselect";
 	}
 	@RequestMapping(value = "/pup/{no}", method = RequestMethod.GET)
-	public String update(LoginVO loginVO, Model model, HttpSession session, @PathVariable int no) {
+	public String update(LoginVO loginVO, ProductVO productVO,Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
 			System.out.println("need login");
 			return "redirect:/main";
 		}
-		ProductVO productVO = productService.selectByNoFA(no);
+		productVO = productService.selectByNoFA(no);
 		model.addAttribute("productVO", productVO);
 		return "/product/update";
 	}
@@ -186,13 +186,13 @@ public class ProductController {
 		return "redirect:/apl";
 	}
 	@RequestMapping(value = "/pde/{no}", method = RequestMethod.GET)
-	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable int no) {
+	public String delete(LoginVO loginVO, ProductVO productVO, Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
 			System.out.println("need login");
 			return "redirect:/main";
 		}
-		ProductVO productVO = productService.selectByNoFA(no);
+		productVO = productService.selectByNoFA(no);
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("loginVO", loginVO);
 		return "/product/delete";

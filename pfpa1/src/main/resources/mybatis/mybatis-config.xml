@@ -11,5 +11,6 @@
 	<typeAliases>
 		<typeAlias type="domain.MemberVO" alias="memberVO"/>
 		<typeAlias type="domain.ProductVO" alias="productVO"/>
+		<typeAlias type="domain.QnaVO" alias="qnaVO"/>
 	</typeAliases>
 </configuration>

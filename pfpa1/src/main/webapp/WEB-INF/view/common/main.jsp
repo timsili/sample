@@ -27,5 +27,6 @@ this is main page<br>
 </c:if>
 <a href="<c:url value="/pli"/>">물품목록</a><br>
 <a href="<c:url value="/pin"/>">물품등록</a><br>
+<a href="<c:url value="/qin"/>">문의등록</a><br>
 </body>
 </html>
