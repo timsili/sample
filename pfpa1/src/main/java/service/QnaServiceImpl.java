@@ -34,4 +34,8 @@ public class QnaServiceImpl implements QnaService {
 	public List<ProductVO> list(Criteria criteria) {
 		return qnaDao.list(criteria);
 	}
+	@Override
+	public QnaVO selectByNo(int no) {
+		return qnaDao.selectByNo(no);
+	}
 }

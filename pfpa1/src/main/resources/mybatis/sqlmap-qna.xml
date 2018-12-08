@@ -21,4 +21,7 @@
 		select * from (select * from (select rownum rn, no, writ, title, pwd, cont, rcnt, ref, step, regd from qna order by ref desc, step asc) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
+	<select id="selectByNo" parameterType="Integer" resultType="qnaVO">
+		select * from qna where no = #{no}
+	</select>
 </mapper>
