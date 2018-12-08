@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import common.utils.Criteria;
+import common.utils.Pagination;
 import common.utils.Salt;
 import domain.LoginVO;
 import domain.MemberVO;
@@ -52,5 +54,14 @@ public class QnaController {
 		qnaVO.setRef(qnaService.getRef());
 		qnaService.insert(qnaVO);
 		return "redirect:/main";
+	}
+	@RequestMapping(value = "/qli")
+	public String list(LoginVO loginVO, Model model, Criteria criteria) {
+		Pagination pagination = new Pagination();
+		pagination.setCriteria(criteria);
+		pagination.setCount(qnaService.count());
+		model.addAttribute("qnaList", qnaService.list(criteria));
+		model.addAttribute("pagination", pagination);
+		return "/qna/list";
 	}
 }
