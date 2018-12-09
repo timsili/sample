@@ -6,7 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import common.utils.Criteria;
 import domain.QnaVO;
 import domain.ReQnaVO;
 

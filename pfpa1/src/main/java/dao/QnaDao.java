@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-import common.utils.Criteria;
 import domain.QnaVO;
 import domain.ReQnaVO;
 
