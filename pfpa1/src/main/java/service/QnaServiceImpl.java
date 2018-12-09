@@ -46,4 +46,12 @@ public class QnaServiceImpl implements QnaService {
 	public List<ReQnaVO> listRe(int no) {
 		return qnaDao.listRe(no);
 	}
+	@Override
+	public int delete(int no) {
+		return qnaDao.delete(no);
+	}
+	@Override
+	public int deleteRe(int no) {
+		return qnaDao.deleteRe(no);
+	}
 }

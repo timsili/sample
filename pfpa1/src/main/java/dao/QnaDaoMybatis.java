@@ -47,4 +47,12 @@ public class QnaDaoMybatis implements QnaDao {
 	public List<ReQnaVO> listRe(int no) {
 		return sqlSessionTemplate.selectList("qnaDao.listRe", no);
 	}
+	@Override
+	public int delete(int no) {
+		return sqlSessionTemplate.delete("qnaDao.delete", no);
+	}
+	@Override
+	public int deleteRe(int no) {
+		return sqlSessionTemplate.delete("qnaDao.deleteRe", no);
+	}
 }

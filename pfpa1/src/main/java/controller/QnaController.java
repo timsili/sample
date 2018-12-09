@@ -14,18 +14,13 @@ import domain.LoginVO;
 import domain.MemberVO;
 import domain.QnaVO;
 import domain.ReQnaVO;
-import service.MemberService;
 import service.QnaService;
 
 @Controller
 public class QnaController {
 	private QnaService qnaService;
-	private MemberService memberService;
 	public void setQnaService(QnaService qnaService) {
 		this.qnaService = qnaService;
-	}
-	public void setMemberService(MemberService memberService) {
-		this.memberService = memberService;
 	}
 	@RequestMapping(value = "/qin", method = RequestMethod.GET)
 	public String insert(LoginVO loginVO, Model model, HttpSession session) {
@@ -75,6 +70,17 @@ public class QnaController {
 	public String select(ReQnaVO reqnaVO, @PathVariable int no) {
 		reqnaVO.setNo(no);
 		qnaService.insertRe(reqnaVO);
+		return "redirect:/qli";
+	}
+	@RequestMapping(value = "/qde/{no}")
+	public String delete(LoginVO loginVO, QnaVO qnaVO, Model model, HttpSession session, @PathVariable int no) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		qnaVO = qnaService.selectByNo(no);
+		if(loginVO == null || !qnaVO.getWrit().equals(loginVO.getId()) && !loginVO.getId().equals("admin")) {
+			return "redirect:/qli";
+		}
+		qnaService.deleteRe(no);
+		qnaService.delete(no);
 		return "redirect:/qli";
 	}
 }
