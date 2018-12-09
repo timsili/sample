@@ -20,10 +20,6 @@
 				<td><form:input path="title"/></td>
 			</tr>
 			<tr>
-				<th><form:label path="pwd">Password</form:label></th>
-				<td><input type="password" id="pwd" name="pwd"></td>
-			</tr>
-			<tr>
 				<th><form:label path="cont">Content</form:label></th>
 				<td><form:textarea path="cont"/></td>
 			</tr>

@@ -4,8 +4,8 @@
 
 <mapper namespace="qnaDao">
 	<insert id="insert" parameterType="qnaVO">
-		insert into qna (no, writ, title, pwd, cont, rcnt, ref, step, regd)
-		values (qna_seq.nextval, #{writ}, #{title}, #{pwd}, #{cont}, 0, #{ref}, 0, systimestamp)
+		insert into qna (no, writ, title, cont, ref, regd)
+		values (qna_seq.nextval, #{writ}, #{title}, #{cont}, #{ref}, systimestamp)
 		<selectKey keyProperty="no" resultType="Integer">
 			select nvl (max(no), 0) from qna
 		</selectKey>
@@ -18,10 +18,16 @@
 	</select>
 	<select id="list" resultType="qnaVO">
 		<![CDATA[
-		select * from (select * from (select rownum rn, no, writ, title, pwd, cont, rcnt, ref, step, regd from qna order by ref desc, step asc) where rn <= #{end}) where rn >= #{start}
+		select * from (select * from (select rownum rn, no, writ, title, cont, ref, regd from qna order by ref desc) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
 	<select id="selectByNo" parameterType="Integer" resultType="qnaVO">
 		select * from qna where no = #{no}
+	</select>
+	<insert id="insertRe" parameterType="reqnaVO">
+		insert into reqna (no, writ, cont, regd) values (#{no}, #{writ}, #{cont}, systimestamp)
+	</insert>
+	<select id="listRe" parameterType="Integer" resultType="reqnaVO">
+		select * from reqna where no = #{no} order by regd asc
 	</select>
 </mapper>

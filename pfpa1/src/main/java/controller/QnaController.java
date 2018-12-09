@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import common.utils.Criteria;
 import common.utils.Pagination;
-import common.utils.Salt;
 import domain.LoginVO;
 import domain.MemberVO;
 import domain.QnaVO;
+import domain.ReQnaVO;
 import service.MemberService;
 import service.QnaService;
 
@@ -39,25 +39,14 @@ public class QnaController {
 		return "/qna/insert";
 	}
 	@RequestMapping(value = "/qin", method = RequestMethod.POST)
-	public String insert(LoginVO loginVO, MemberVO memberVO, QnaVO qnaVO, HttpSession session, String pwd) {
+	public String insert(LoginVO loginVO, MemberVO memberVO, QnaVO qnaVO, HttpSession session) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
-		if(!loginVO.getPwd().equals(pwd)) {
-			return "redirect:/qin";
-		}
-		memberVO = memberService.selectById(loginVO.getId());
-		String salt = memberVO.getSalt();
-		String tmp = pwd;
-		String npwd = Salt.getEncrypt(tmp, salt);
-		if(!memberVO.getPwd().equals(npwd)) {
-			return "redirect:/qin";
-		}
-		qnaVO.setPwd(npwd);
 		qnaVO.setRef(qnaService.getRef());
 		qnaService.insert(qnaVO);
 		return "redirect:/qli";
 	}
 	@RequestMapping(value = "/qli")
-	public String list(LoginVO loginVO, Model model, Criteria criteria) {
+	public String list(Model model, Criteria criteria) {
 		Pagination pagination = new Pagination();
 		pagination.setCriteria(criteria);
 		pagination.setCount(qnaService.count());
@@ -65,14 +54,27 @@ public class QnaController {
 		model.addAttribute("pagination", pagination);
 		return "/qna/list";
 	}
-	@RequestMapping(value = "/qse/{no}")
+	@RequestMapping(value = "/qse/{no}", method = RequestMethod.GET)
 	public String select(LoginVO loginVO, QnaVO qnaVO, Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		qnaVO = qnaService.selectByNo(no);
 		if(loginVO == null || !qnaVO.getWrit().equals(loginVO.getId()) && !loginVO.getId().equals("admin")) {
 			return "redirect:/qli";
 		}
+		ReQnaVO reqnaVO = new ReQnaVO();
+		reqnaVO.setWrit(loginVO.getId());
+		if(loginVO.getId().equals("admin")) {
+			reqnaVO.setWrit("admin");
+		}
 		model.addAttribute("qnaVO", qnaService.selectByNo(no));
+		model.addAttribute("reqnaList", qnaService.listRe(no));
+		model.addAttribute("reqnaVO", reqnaVO);
 		return "/qna/select";
+	}
+	@RequestMapping(value = "/qse/{no}", method = RequestMethod.POST)
+	public String select(ReQnaVO reqnaVO, @PathVariable int no) {
+		reqnaVO.setNo(no);
+		qnaService.insertRe(reqnaVO);
+		return "redirect:/qli";
 	}
 }
