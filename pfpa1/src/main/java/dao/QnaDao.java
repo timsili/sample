@@ -3,13 +3,15 @@ package dao;
 import java.util.List;
 
 import common.utils.Criteria;
-import domain.ProductVO;
 import domain.QnaVO;
+import domain.ReQnaVO;
 
 public interface QnaDao {
 	public abstract void insert(QnaVO qnaVO);
 	public abstract int getRef();
 	public abstract int count();
-	public abstract List<ProductVO> list(Criteria criteria);
+	public abstract List<QnaVO> list(Criteria criteria);
 	public abstract QnaVO selectByNo(int no);
+	public abstract void insertRe(ReQnaVO reqnaVO);
+	public abstract List<ReQnaVO> listRe(int no);
 }

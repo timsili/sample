@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import common.utils.Criteria;
 import dao.QnaDao;
-import domain.ProductVO;
 import domain.QnaVO;
+import domain.ReQnaVO;
 
 @Service
 public class QnaServiceImpl implements QnaService {
@@ -31,11 +31,19 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.count();
 	}
 	@Override
-	public List<ProductVO> list(Criteria criteria) {
+	public List<QnaVO> list(Criteria criteria) {
 		return qnaDao.list(criteria);
 	}
 	@Override
 	public QnaVO selectByNo(int no) {
 		return qnaDao.selectByNo(no);
+	}
+	@Override
+	public void insertRe(ReQnaVO reqnaVO) {
+		qnaDao.insertRe(reqnaVO);
+	}
+	@Override
+	public List<ReQnaVO> listRe(int no) {
+		return qnaDao.listRe(no);
 	}
 }
