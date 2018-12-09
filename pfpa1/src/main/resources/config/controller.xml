@@ -13,6 +13,5 @@
 	</bean>
 	<bean id="qnaController" class="controller.QnaController">
 		<property name="qnaService" ref="qnaServiceImpl"/>
-		<property name="memberService" ref="memberServiceImpl"/>
 	</bean>
 </beans>

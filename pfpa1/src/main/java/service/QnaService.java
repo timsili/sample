@@ -14,4 +14,6 @@ public interface QnaService {
 	public abstract QnaVO selectByNo(int no);
 	public abstract void insertRe(ReQnaVO reqnaVO);
 	public abstract List<ReQnaVO> listRe(int no);
+	public abstract int delete(int no);
+	public abstract int deleteRe(int no);
 }

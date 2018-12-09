@@ -32,6 +32,11 @@
 			<th>cont</th>
 			<td>${qnaVO.cont}</td>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="<c:url value="/qde/${qnaVO.no}"/>">Delete</a>
+			</td>
+		</tr>
 	</table>
 	<table border="1">
 		<c:forEach var="r" items="${reqnaList}" varStatus="loop">

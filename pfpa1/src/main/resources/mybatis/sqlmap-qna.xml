@@ -30,4 +30,10 @@
 	<select id="listRe" parameterType="Integer" resultType="reqnaVO">
 		select * from reqna where no = #{no} order by regd asc
 	</select>
+	<delete id="delete">
+		delete from qna where no = #{no}
+	</delete>
+	<delete id="deleteRe">
+		delete from reqna where no = #{no}
+	</delete>
 </mapper>

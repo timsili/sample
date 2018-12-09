@@ -32,7 +32,6 @@ public class ProductController {
 	public String insert(LoginVO loginVO, Model model, HttpSession session) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
-			System.out.println("need login");
 			return "redirect:/main";
 		}
 		model.addAttribute("productVO", new ProductVO());
@@ -94,7 +93,6 @@ public class ProductController {
 	public String adminList(LoginVO loginVO, Model model, HttpSession session, Criteria criteria) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
-			System.out.println("need login");
 			return "redirect:/main";
 		}
 		Pagination pagination = new Pagination();
@@ -117,7 +115,6 @@ public class ProductController {
 	public String selectFA(LoginVO loginVO, Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
-			System.out.println("need login");
 			return "redirect:/main";
 		}
 		ProductVO productVO = productService.selectByNoFA(no);
@@ -131,7 +128,6 @@ public class ProductController {
 	public String update(LoginVO loginVO, ProductVO productVO,Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
-			System.out.println("need login");
 			return "redirect:/main";
 		}
 		productVO = productService.selectByNoFA(no);
@@ -189,7 +185,6 @@ public class ProductController {
 	public String delete(LoginVO loginVO, ProductVO productVO, Model model, HttpSession session, @PathVariable int no) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(session.getAttribute("loginVO") == null || !loginVO.getId().equals("admin")) {
-			System.out.println("need login");
 			return "redirect:/main";
 		}
 		productVO = productService.selectByNoFA(no);
