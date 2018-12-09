@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import common.utils.Criteria;
 import dao.QnaDao;
 import domain.QnaVO;
 import domain.ReQnaVO;
