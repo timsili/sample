@@ -4,21 +4,18 @@
 
 <mapper namespace="qnaDao">
 	<insert id="insert" parameterType="qnaVO">
-		insert into qna (no, writ, title, cont, ref, regd)
-		values (qna_seq.nextval, #{writ}, #{title}, #{cont}, #{ref}, systimestamp)
+		insert into qna (no, writ, title, cont, rep, regd)
+		values (qna_seq.nextval, #{writ}, #{title}, #{cont}, '답변대기', systimestamp)
 		<selectKey keyProperty="no" resultType="Integer">
 			select nvl (max(no), 0) from qna
 		</selectKey>
 	</insert>
-	<select id="getRef" resultType="Integer">
-		select nvl(max(no)+1, 1) from qna
-	</select>
-	<select id="count" resultType="Integer">
-		select count (no) from qna
+ 	<select id="count" parameterType="String" resultType="Integer">
+		select count (no) from qna where writ like '%'||#{id}||'%'
 	</select>
 	<select id="list" resultType="qnaVO">
 		<![CDATA[
-		select * from (select * from (select rownum rn, no, writ, title, cont, ref, regd from qna order by ref desc) where rn <= #{end}) where rn >= #{start}
+		select * from (select * from (select rownum rn, no, writ, title, cont, rep, regd from qna where writ like '%'||#{id}||'%' order by no desc) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
 	<select id="selectByNo" parameterType="Integer" resultType="qnaVO">
@@ -36,4 +33,10 @@
 	<delete id="deleteRe">
 		delete from reqna where no = #{no}
 	</delete>
+	<update id="updateUs" parameterType="Integer">
+		update qna set rep = '답변대기' where no = #{no}
+	</update>
+	<update id="updateAd" parameterType="Integer">
+		update qna set rep = '답변완료' where no = #{no}
+	</update>
 </mapper>

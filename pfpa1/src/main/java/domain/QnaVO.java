@@ -12,8 +12,8 @@ public class QnaVO {
 	private String title;
 //	content
 	private String cont;
-//	read count
-	private int ref;
+//	reply
+	private String rep;
 //	registration date
 	private Timestamp regd;
 	public int getNo() {
@@ -40,11 +40,11 @@ public class QnaVO {
 	public void setCont(String cont) {
 		this.cont = cont;
 	}
-	public int getRef() {
-		return ref;
+	public String getRep() {
+		return rep;
 	}
-	public void setRef(int ref) {
-		this.ref = ref;
+	public void setRep(String rep) {
+		this.rep = rep;
 	}
 	public Timestamp getRegd() {
 		return regd;

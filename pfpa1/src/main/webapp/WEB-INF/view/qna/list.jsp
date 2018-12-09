@@ -10,9 +10,14 @@
 </head>
 <body>
 	<a href="<c:url value="/main"/>">Main</a><br>
+	<form action="${path}/qli" method="GET">
+		<input type="text" name="id">
+		<input type="submit" value="Search">
+	</form>
 	<table border="1">
 		<tr>
 			<th>no</th>
+			<th>rep</th>
 			<th>title</th>
 			<th>writ</th>
 			<th>regd</th>
@@ -20,6 +25,7 @@
 		<c:forEach var="q" items="${qnaList}" varStatus="loop">
 			<tr>
 				<td>${q.no}</td>
+				<td>${q.rep}</td>
 				<td><a href="<c:url value="/qse/${q.no}"/>">${q.title}</a></td>
 				<td>${q.writ}</td>
 				<td>${q.regd}</td>
@@ -35,5 +41,6 @@
 	<c:if test="${pagination.next}">
 		<a href="${path}/qli?page=${pagination.end+1}">next</a>
 	</c:if>
+	<br><a href="<c:url value="/qin"/>">문의등록</a>
 </body>
 </html>
