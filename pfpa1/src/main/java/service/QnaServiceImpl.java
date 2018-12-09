@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,16 +24,12 @@ public class QnaServiceImpl implements QnaService {
 		qnaDao.insert(qnaVO);
 	}
 	@Override
-	public int getRef() {
-		return qnaDao.getRef();
+	public int count(String id) {
+		return qnaDao.count(id);
 	}
 	@Override
-	public int count() {
-		return qnaDao.count();
-	}
-	@Override
-	public List<QnaVO> list(Criteria criteria) {
-		return qnaDao.list(criteria);
+	public List<QnaVO> list(Map<String, Object> map) {
+		return qnaDao.list(map);
 	}
 	@Override
 	public QnaVO selectByNo(int no) {
@@ -53,5 +50,13 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public int deleteRe(int no) {
 		return qnaDao.deleteRe(no);
+	}
+	@Override
+	public int updateUs(int no) {
+		return qnaDao.updateUs(no);
+	}
+	@Override
+	public int updateAd(int no) {
+		return qnaDao.updateAd(no);
 	}
 }

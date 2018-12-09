@@ -89,6 +89,7 @@ public class MemberController {
 	public String list(LoginVO loginVO, Model model, HttpSession session, Criteria criteria) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
 			return "redirect:/main";
 		}
 		Pagination pagination = new Pagination();
@@ -102,6 +103,7 @@ public class MemberController {
 	public String select(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
 			return "redirect:/main";
 		}
 		model.addAttribute("memberVO", memberService.selectById(id));
@@ -111,6 +113,7 @@ public class MemberController {
 	public String update(LoginVO loginVO, MemberVO memberVO, Model model, HttpSession session, @PathVariable String id) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null || !loginVO.getId().equals(id) && !loginVO.getId().equals("admin")) {
+			System.out.println("need login");
 			return "redirect:/main";
 		}
 		memberVO = memberService.selectById(id);
@@ -137,6 +140,7 @@ public class MemberController {
 	public String delete(LoginVO loginVO, Model model, HttpSession session, @PathVariable String id) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null) {
+			System.out.println("need login");
 			return "redirect:/main";
 		}
 		MemberVO memberVO = memberService.selectById(id);

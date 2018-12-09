@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,16 +24,12 @@ public class QnaDaoMybatis implements QnaDao {
 		sqlSessionTemplate.insert("qnaDao.insert", qnaVO);
 	}
 	@Override
-	public int getRef() {
-		return sqlSessionTemplate.selectOne("qnaDao.getRef");
+	public int count(String id) {
+		return sqlSessionTemplate.selectOne("qnaDao.count", id);
 	}
 	@Override
-	public int count() {
-		return sqlSessionTemplate.selectOne("qnaDao.count");
-	}
-	@Override
-	public List<QnaVO> list(Criteria criteria) {
-		return sqlSessionTemplate.selectList("qnaDao.list", criteria);
+	public List<QnaVO> list(Map<String, Object> map) {
+		return sqlSessionTemplate.selectList("qnaDao.list", map);
 	}
 	@Override
 	public QnaVO selectByNo(int no) {
@@ -54,5 +51,13 @@ public class QnaDaoMybatis implements QnaDao {
 	@Override
 	public int deleteRe(int no) {
 		return sqlSessionTemplate.delete("qnaDao.deleteRe", no);
+	}
+	@Override
+	public int updateUs(int no) {
+		return sqlSessionTemplate.update("qnaDao.updateUs", no);
+	}
+	@Override
+	public int updateAd(int no) {
+		return sqlSessionTemplate.update("qnaDao.updateAd", no);
 	}
 }
