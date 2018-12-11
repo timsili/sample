@@ -14,4 +14,7 @@
 	<bean id="qnaController" class="controller.QnaController">
 		<property name="qnaService" ref="qnaServiceImpl"/>
 	</bean>
+	<bean id="orderController" class="controller.OrderController">
+		<property name="orderService" ref="orderServiceImpl"/>
+	</bean>
 </beans>

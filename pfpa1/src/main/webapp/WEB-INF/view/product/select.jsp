@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,29 @@
 		<tr>
 			<th>price of option</th>
 			<td>${productVO.proop}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<form:form commandName="cartVO" method="POST" action="${path}/cas">
+					<input type="hidden" name="no" value="${productVO.no}">
+					<input type="hidden" name="cate" value="${productVO.cate}">
+					<input type="hidden" name="item" value="${productVO.item}">
+					<input type="hidden" name="pric" value="${productVO.pric}">
+					<input type="text" name="opti">
+					<input type="text" name="proop">
+					<input type="text" name="stock">
+					<input type="submit" value="Cart">
+				</form:form>
+				<%-- <form action="${path}/cas" method="GET">
+					<input type="hidden" name="no" value="${productVO.no}">
+					<input type="hidden" name="cate" value="${productVO.cate}">
+					<input type="hidden" name="item" value="${productVO.item}">
+					<input type="hidden" name="pric" value="${productVO.pric}">
+					<input type="text" name="opti">
+					<input type="text" name="proop">
+					<input type="submit" value="Cart">
+				</form> --%>
+			</td>
 		</tr>
 		<tr>
 			<th>description</th>

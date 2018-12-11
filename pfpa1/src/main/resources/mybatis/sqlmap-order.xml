@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orderDao">
+	<insert id="insertCart">
+		insert into cart (no, id, item, cate, pric, opti, proop, stock, regd)
+		values (#{no}, #{id}, #{item}, #{cate}, #{pric}, #{opti}, #{proop}, #{stock}, systimestamp)
+	</insert>
+	<select id="listCart" parameterType="String" resultType="cartVO">
+		select * from cart where id = #{id} order by regd desc
+	</select>
+	<select id="searchDupl" parameterType="cartVO" resultType="Integer">
+		select count(*) from cart where no = #{no} and id = #{id} and item = #{item} and cate = #{cate} and pric = #{pric} and opti = #{opti} and proop = #{proop}
+	</select>
+	<update id="updateCart" parameterType="cartVO">
+		update cart set no = #{no}, id = #{id}, item = #{item}, cate = #{cate}, pric = #{pric}, opti = #{opti}, proop = #{proop}, stock = #{stock}, regd = systimestamp
+		where no = #{no} and id = #{id} and item = #{item} and cate = #{cate} and pric = #{pric} and opti = #{opti} and proop = #{proop} 
+	</update>
+</mapper>

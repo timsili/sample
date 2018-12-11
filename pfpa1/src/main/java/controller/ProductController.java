@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import common.utils.Criteria;
 import common.utils.Pagination;
+import domain.CartVO;
 import domain.LoginVO;
 import domain.ProductVO;
 import service.ProductService;
@@ -105,10 +106,11 @@ public class ProductController {
 		return "/product/alist";
 	}
 	@RequestMapping(value = "/pse/{no}")
-	public String selectTA(Model model, @PathVariable int no) {
+	public String selectTA(CartVO cartVO, Model model, @PathVariable int no) {
 		ProductVO productVO = productService.selectByNoTA(no);
 		String destmp = productVO.getCndes();
 		String[] descr = destmp.substring(1, destmp.length()-1).split(", ");
+		model.addAttribute("cartVO", new CartVO());
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("descrList", descr);
 		return "/product/select";
