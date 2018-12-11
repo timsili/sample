@@ -28,6 +28,7 @@
 				<value>classpath:mybatis/sqlmap-member.xml</value>
 				<value>classpath:mybatis/sqlmap-product.xml</value>
 				<value>classpath:mybatis/sqlmap-qna.xml</value>
+				<value>classpath:mybatis/sqlmap-order.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -51,6 +52,12 @@
 	</bean>
 	<bean id="qnaServiceImpl" class="service.QnaServiceImpl">
 		<property name="qnaDao" ref="qnaDao"/>
+	</bean>
+	<bean id="orderDao" class="dao.OrderDaoMybatis">
+		<constructor-arg ref="sqlSessionTemplate"/>
+	</bean>
+	<bean id="orderServiceImpl" class="service.OrderServiceImpl">
+		<property name="orderDao" ref="orderDao"/>
 	</bean>
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 </beans>
