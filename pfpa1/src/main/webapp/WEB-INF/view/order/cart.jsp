@@ -48,7 +48,7 @@
 			</td>
 		</tr>
 	</table>
-	<form action="${path}/cfm" method="get">
+	<form action="${path}/cfo" method="get">
 		<input type="submit" value="Check Order">
 	</form>
 </body>

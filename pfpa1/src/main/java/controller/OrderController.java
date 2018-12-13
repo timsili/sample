@@ -57,7 +57,7 @@ public class OrderController {
 		model.addAttribute("cartList", orderService.listCart(loginVO.getId()));
 		return "/order/cart";
 	}
-	@RequestMapping(value = "/cfm", method = RequestMethod.GET)
+	@RequestMapping(value = "/cfo", method = RequestMethod.GET)
 	public String confirm(LoginVO loginVO, MemberVO memberVO, Model model, HttpSession session) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		if(loginVO == null) {
@@ -72,20 +72,22 @@ public class OrderController {
 		for(int i=0 ; i<list.size() ; i++) {
 			sum += (list.get(i).getPric() + list.get(i).getProop()) * list.get(i).getStock();
 		}
+		int orno = 0;
 		if(orderService.checkOrno(id) == 0) {
 			Random r = new Random();
-			int orno = 0;
 			while(true) {
 				orno = r.nextInt(900000) + 100000;
 				if(orderService.searchOrno(orno) == 0) {
 					break;
 				}
 			}
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("orno", orno);
-			map.put("id", id);
-			orderService.updateOrno(map);
+		}else {
+			orno = orderService.selectOrno(id);
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orno", orno);
+		map.put("id", id);
+		orderService.updateOrno(map);
 		int point = (int)(sum * 0.002);
 		model.addAttribute("cartList", orderService.listCart(id));
 		model.addAttribute("memberVO", memberService.selectById(id));
@@ -94,7 +96,7 @@ public class OrderController {
 		model.addAttribute("point", point);
 		return "/order/confirm";
 	}
-	@RequestMapping(value = "/cfm", method = RequestMethod.POST)
+	@RequestMapping(value = "/cfo", method = RequestMethod.POST)
 	public String confirm(LoginVO loginVO, MemberVO memberVO, OrdersVO ordersVO, Model model, HttpSession session, HttpServletRequest req) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
 		memberVO = memberService.selectById(loginVO.getId());
@@ -119,6 +121,6 @@ public class OrderController {
 			ordersVO.setPade(req.getParameter("acco"));
 		}
 		orderService.insertOrder(ordersVO);
-		return "redirect:/cfm";
+		return "redirect:/cfo";
 	}
 }
