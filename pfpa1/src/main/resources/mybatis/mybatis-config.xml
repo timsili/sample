@@ -14,5 +14,6 @@
 		<typeAlias type="domain.QnaVO" alias="qnaVO"/>
 		<typeAlias type="domain.ReQnaVO" alias="reqnaVO"/>
 		<typeAlias type="domain.CartVO" alias="cartVO"/>
+		<typeAlias type="domain.OrdersVO" alias="ordersVO"/>
 	</typeAliases>
 </configuration>

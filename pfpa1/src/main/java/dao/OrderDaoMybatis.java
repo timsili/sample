@@ -1,11 +1,13 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import domain.CartVO;
+import domain.OrdersVO;
 
 @Repository
 public class OrderDaoMybatis implements OrderDao {
@@ -31,5 +33,25 @@ public class OrderDaoMybatis implements OrderDao {
 	@Override
 	public int updateCart(CartVO cartVO) {
 		return sqlSessionTemplate.update("orderDao.updateCart", cartVO);
+	}
+	@Override
+	public int checkOrno(String id) {
+		return sqlSessionTemplate.selectOne("orderDao.checkOrno", id);
+	}
+	@Override
+	public int searchOrno(int orno) {
+		return sqlSessionTemplate.selectOne("orderDao.searchOrno", orno);
+	}
+	@Override
+	public int updateOrno(Map<String, Object> map) {
+		return sqlSessionTemplate.update("orderDao.updateOrno", map);
+	}
+	@Override
+	public int selectOrno(String id) {
+		return sqlSessionTemplate.selectOne("orderDao.selectOrno", id);
+	}
+	@Override
+	public void insertOrder(OrdersVO ordersVO) {
+		sqlSessionTemplate.insert("orderDao.insertOrder", ordersVO);
 	}
 }

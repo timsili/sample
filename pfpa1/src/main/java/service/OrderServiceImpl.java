@@ -1,11 +1,13 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import dao.OrderDao;
 import domain.CartVO;
+import domain.OrdersVO;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -31,5 +33,25 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int updateCart(CartVO cartVO) {
 		return orderDao.updateCart(cartVO);
+	}
+	@Override
+	public int checkOrno(String id) {
+		return orderDao.checkOrno(id);
+	}
+	@Override
+	public int searchOrno(int orno) {
+		return orderDao.searchOrno(orno);
+	}
+	@Override
+	public int updateOrno(Map<String, Object> map) {
+		return orderDao.updateOrno(map);
+	}
+	@Override
+	public int selectOrno(String id) {
+		return orderDao.selectOrno(id);
+	}
+	@Override
+	public void insertOrder(OrdersVO ordersVO) {
+		orderDao.insertOrder(ordersVO);
 	}
 }

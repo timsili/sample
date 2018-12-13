@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="orderDao">
-	<insert id="insertCart">
+	<insert id="insertCart" parameterType="cartVO">
 		insert into cart (no, id, item, cate, pric, opti, proop, stock, regd)
 		values (#{no}, #{id}, #{item}, #{cate}, #{pric}, #{opti}, #{proop}, #{stock}, systimestamp)
 	</insert>
@@ -17,4 +17,20 @@
 		update cart set no = #{no}, id = #{id}, item = #{item}, cate = #{cate}, pric = #{pric}, opti = #{opti}, proop = #{proop}, stock = #{stock}, regd = systimestamp
 		where no = #{no} and id = #{id} and item = #{item} and cate = #{cate} and pric = #{pric} and opti = #{opti} and proop = #{proop} 
 	</update>
+	<select id="checkOrno" parameterType="String" resultType="Integer">
+		select count(distinct orno) from cart where id = #{id}
+	</select>
+	<select id="searchOrno" parameterType="Integer" resultType="Integer">
+		select count(orno) from cart where orno = #{orno}
+	</select>
+	<update id="updateOrno" parameterType="map">
+		update cart set orno = #{orno} where id = #{id}
+	</update>
+	<select id="selectOrno" parameterType="String" resultType="Integer">
+		select distinct orno from cart where id = #{id}
+	</select>
+	<insert id="insertOrder" parameterType="ordersVO">
+		insert into orders (no, orno, id, name, poco, addr, daddr, tel, ceph, dema, prog, regd, pame, pade)
+		values (orders_seq.nextval, #{orno}, #{id}, #{name}, #{poco}, #{addr}, #{daddr}, #{tel}, #{ceph}, #{dema}, '결제대기중', systimestamp, #{pame}, #{pade})
+	</insert>
 </mapper>

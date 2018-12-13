@@ -5,9 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <title>Cart</title>
 </head>
 <body>
+	<a href="<c:url value="/pli"/>">Continue</a>
+	<a href="<c:url value="/main"/>">Main</a>
 	<table border="1">
 		<tr>
 			<th>no</th>
@@ -20,27 +23,33 @@
 			<th>stock</th>
 		</tr>
 		<c:set var="sum" value="${0}"/>
-		<c:forEach var="c" items="${cartList}" varStatus="loop">
+		<c:if test="${empty cartList}">
 			<tr>
-				<td>${c.no}</td>
-				<td>${c.id}</td>
-				<td>${c.cate}</td>
-				<td>${c.item}</td>
-				<td>${c.pric}</td>
-				<td>${c.opti}</td>
-				<td>${c.proop}<c:set var="sum" value="${sum+c.pric+c.stock*c.proop}"/></td>
-				<td>${c.stock}</td>
+				<td colspan="8">장바구니가 비어있습니다.</td>
 			</tr>
-		</c:forEach>
+		</c:if>
+		<c:if test="${!empty cartList}">
+			<c:forEach var="c" items="${cartList}" varStatus="loop">
+				<tr>
+					<td>${c.no}</td>
+					<td>${c.id}</td>
+					<td>${c.cate}</td>
+					<td>${c.item}</td>
+					<td>${c.pric}</td>
+					<td>${c.opti}</td>
+					<td>${c.proop}<c:set var="sum" value="${sum+(c.pric+c.proop)*c.stock}"/></td>
+					<td>${c.stock}</td>
+				</tr>
+			</c:forEach>
+		</c:if>
 		<tr>
-			<td colspan="5">
-				<a href="<c:url value="/pli"/>">Continue</a>
-				<a href="<c:url value="/main"/>">Main</a>
-			</td>
-			<td colspan="3">
-				합계 : <c:out value="${sum}"/>
+			<td colspan="8">
+				합계 : <c:out value="${sum}"/><br>
 			</td>
 		</tr>
 	</table>
+	<form action="${path}/cfm" method="get">
+		<input type="submit" value="Check Order">
+	</form>
 </body>
 </html>
