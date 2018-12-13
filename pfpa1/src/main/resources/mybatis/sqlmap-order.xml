@@ -27,7 +27,7 @@
 		update cart set orno = #{orno} where id = #{id}
 	</update>
 	<select id="selectOrno" parameterType="String" resultType="Integer">
-		select distinct orno from cart where id = #{id}
+		select distinct orno from cart where orno is not null and id = #{id} 
 	</select>
 	<insert id="insertOrder" parameterType="ordersVO">
 		insert into orders (no, orno, id, name, poco, addr, daddr, tel, ceph, dema, prog, regd, pame, pade)
