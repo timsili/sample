@@ -16,4 +16,8 @@ public interface OrderDao {
 	public abstract int updateOrno(Map<String, Object> map);
 	public abstract int selectOrno(String id);
 	public abstract void insertOrder(OrdersVO ordersVO);
+	public abstract void insertOrDe(CartVO cartVO);
+	public abstract int deleteCart(String id);
+	public abstract List<OrdersVO> listOrders(String id);
+	public abstract OrdersVO selectOrders(Map<String, Object> map);
 }
