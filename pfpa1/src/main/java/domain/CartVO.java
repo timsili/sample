@@ -12,9 +12,10 @@ public class CartVO {
 	private String item;
 	private int pric;
 	private String opti;
-	private String proop;
+	private int proop;
 	private int stock;
 	private Timestamp regd;
+	private int orno;
 	public int getNo() {
 		return no;
 	}
@@ -51,10 +52,10 @@ public class CartVO {
 	public void setOpti(String opti) {
 		this.opti = opti;
 	}
-	public String getProop() {
+	public int getProop() {
 		return proop;
 	}
-	public void setProop(String proop) {
+	public void setProop(int proop) {
 		this.proop = proop;
 	}
 	public int getStock() {
@@ -68,5 +69,11 @@ public class CartVO {
 	}
 	public void setRegd(Timestamp regd) {
 		this.regd = regd;
+	}
+	public int getOrno() {
+		return orno;
+	}
+	public void setOrno(int orno) {
+		this.orno = orno;
 	}
 }

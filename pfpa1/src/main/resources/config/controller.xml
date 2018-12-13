@@ -16,5 +16,6 @@
 	</bean>
 	<bean id="orderController" class="controller.OrderController">
 		<property name="orderService" ref="orderServiceImpl"/>
+		<property name="memberService" ref="memberServiceImpl"/>
 	</bean>
 </beans>
