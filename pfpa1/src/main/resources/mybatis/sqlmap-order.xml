@@ -33,4 +33,17 @@
 		insert into orders (no, orno, id, name, poco, addr, daddr, tel, ceph, dema, prog, regd, pame, pade)
 		values (orders_seq.nextval, #{orno}, #{id}, #{name}, #{poco}, #{addr}, #{daddr}, #{tel}, #{ceph}, #{dema}, '결제대기중', systimestamp, #{pame}, #{pade})
 	</insert>
+	<insert id="insertOrDe" parameterType="cartVO">
+		insert into orderdetail (no, id, item, cate, pric, opti, proop, stock, regd, orno)
+		values (#{no}, #{id}, #{item}, #{cate}, #{pric}, #{opti}, #{proop}, #{stock}, systimestamp, #{orno})
+	</insert>
+	<delete id="deleteCart" parameterType="String">
+		delete from cart where id = #{id}
+	</delete>
+	<select id="listOrders" parameterType="String" resultType="ordersVO">
+		select * from orders where id = #{id} order by regd asc
+	</select>
+	<select id="selectOrders" parameterType="map" resultType="ordersVO">
+		select * from orders where id = #{id} and orno = #{orno}
+	</select>
 </mapper>

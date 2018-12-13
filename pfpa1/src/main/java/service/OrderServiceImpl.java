@@ -54,4 +54,20 @@ public class OrderServiceImpl implements OrderService {
 	public void insertOrder(OrdersVO ordersVO) {
 		orderDao.insertOrder(ordersVO);
 	}
+	@Override
+	public void insertOrDe(CartVO cartVO) {
+		orderDao.insertOrDe(cartVO);
+	}
+	@Override
+	public int deleteCart(String id) {
+		return orderDao.deleteCart(id);
+	}
+	@Override
+	public List<OrdersVO> listOrders(String id) {
+		return orderDao.listOrders(id);
+	}
+	@Override
+	public OrdersVO selectOrders(Map<String, Object> map) {
+		return orderDao.selectOrders(map);
+	}
 }

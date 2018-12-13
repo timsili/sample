@@ -121,6 +121,35 @@ public class OrderController {
 			ordersVO.setPade(req.getParameter("acco"));
 		}
 		orderService.insertOrder(ordersVO);
-		return "redirect:/cfo";
+		return "redirect:/cho";
+	}
+	@RequestMapping(value = "/cho", method = RequestMethod.GET)
+	public String check(LoginVO loginVO, Model model, HttpSession session) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
+			return "redirect:/main";
+		}
+		if(orderService.listCart(loginVO.getId()).isEmpty()) {
+			return "redirect:/main";
+		}
+		int orno = orderService.selectOrno(loginVO.getId());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("orno", orno);
+		if(orderService.selectOrders(map) == null) {
+			return "redirect:/main";
+		}
+		model.addAttribute("ordersVO", orderService.selectOrders(map));
+		return "/order/check";
+	}
+	@RequestMapping(value = "/cho", method = RequestMethod.POST)
+	public String check(LoginVO loginVO, HttpSession session) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		List<CartVO> cartList = orderService.listCart(loginVO.getId());
+		for(CartVO cartVO : cartList) {
+			orderService.insertOrDe(cartVO);
+		}
+		orderService.deleteCart(loginVO.getId());
+		return "redirect:/main";
 	}
 }

@@ -54,4 +54,21 @@ public class OrderDaoMybatis implements OrderDao {
 	public void insertOrder(OrdersVO ordersVO) {
 		sqlSessionTemplate.insert("orderDao.insertOrder", ordersVO);
 	}
+	@Override
+	public void insertOrDe(CartVO cartVO) {
+		sqlSessionTemplate.insert("orderDao.insertOrDe", cartVO);
+	}
+	@Override
+	public int deleteCart(String id) {
+		return sqlSessionTemplate.delete("orderDao.deleteCart", id);
+	}
+	@Override
+	public List<OrdersVO> listOrders(String id) {
+		return sqlSessionTemplate.selectList("orderDao.listOrders", id);
+	}
+	@Override
+	public OrdersVO selectOrders(Map<String, Object> map) {
+		OrdersVO ordersVO = (OrdersVO)sqlSessionTemplate.selectOne("orderDao.selectOrders", map);
+		return ordersVO;
+	}
 }
