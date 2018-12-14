@@ -19,7 +19,7 @@
 		</tr>
 		<c:forEach var="o" items="${ordersList}">
 			<tr>
-				<td>${o.orno}</td>
+				<td><a href="<c:url value="/pro/${o.orno}"/>">${o.orno}</a></td>
 				<td>${o.regd}</td>
 				<td>${o.item}</td>
 				<td>${o.sum}</td>

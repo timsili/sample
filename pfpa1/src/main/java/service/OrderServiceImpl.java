@@ -78,4 +78,8 @@ public class OrderServiceImpl implements OrderService {
 	public int countCart(Map<String, Object> map) {
 		return orderDao.countCart(map);
 	}
+	@Override
+	public List<CartVO> listOrde(Map<String, Object> map) {
+		return orderDao.listOrde(map);
+	}
 }

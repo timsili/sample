@@ -22,4 +22,5 @@ public interface OrderDao {
 	public abstract OrdersVO selectOrders(Map<String, Object> map);
 	public abstract String selectLaIt(String id);
 	public abstract int countCart(Map<String, Object> map);
+	public abstract List<CartVO> listOrde(Map<String, Object> map);
 }
