@@ -52,4 +52,7 @@
 	<select id="countCart" parameterType="map" resultType="Integer">
 		select count(*) from cart where id = #{id} and orno = #{orno}
 	</select>
+	<select id="listOrde" parameterType="map" resultType="cartVO">
+		select * from orderdetail where id = #{id} and orno = #{orno} order by regd desc
+	</select>
 </mapper>

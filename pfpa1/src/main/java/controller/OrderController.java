@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -168,5 +169,18 @@ public class OrderController {
 		}
 		model.addAttribute("ordersList", orderService.listOrders(loginVO.getId()));
 		return "/order/progress";
+	}
+	@RequestMapping(value = "/pro/{orno}", method = RequestMethod.GET)
+	public String progressOrno(LoginVO loginVO, Model model, HttpSession session, @PathVariable int orno) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
+			return "redirect:/main";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("orno", orno);
+		model.addAttribute("order", orderService.selectOrders(map));
+		model.addAttribute("orderList", orderService.listOrde(map));
+		return "/order/progDetail";
 	}
 }
