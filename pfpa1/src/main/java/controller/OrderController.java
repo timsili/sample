@@ -97,11 +97,18 @@ public class OrderController {
 		return "/order/confirm";
 	}
 	@RequestMapping(value = "/cfo", method = RequestMethod.POST)
-	public String confirm(LoginVO loginVO, MemberVO memberVO, OrdersVO ordersVO, Model model, HttpSession session, HttpServletRequest req) {
+	public String confirm(LoginVO loginVO, MemberVO memberVO, OrdersVO ordersVO, Model model, HttpSession session, HttpServletRequest req, int sum) {
 		loginVO = (LoginVO)session.getAttribute("loginVO");
-		memberVO = memberService.selectById(loginVO.getId());
-		ordersVO.setId(memberVO.getId());
-		ordersVO.setOrno(orderService.selectOrno(loginVO.getId()));
+		String id = loginVO.getId();
+		memberVO = memberService.selectById(id);
+		ordersVO.setId(id);
+		ordersVO.setOrno(orderService.selectOrno(id));
+		String item = orderService.selectLaIt(id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", ordersVO.getId());
+		map.put("orno", ordersVO.getOrno());
+		String itemEx = String.valueOf(orderService.countCart(map));
+		ordersVO.setItem(item + " 외 " + itemEx + "품목");
 		if(req.getParameter("s").equals("sa")) {
 			ordersVO.setName(memberVO.getName());
 			ordersVO.setPoco(memberVO.getPoco());
@@ -120,6 +127,7 @@ public class OrderController {
 			ordersVO.setPame(req.getParameter("bank"));
 			ordersVO.setPade(req.getParameter("acco"));
 		}
+		ordersVO.setSum(sum);
 		orderService.insertOrder(ordersVO);
 		return "redirect:/cho";
 	}
@@ -151,5 +159,14 @@ public class OrderController {
 		}
 		orderService.deleteCart(loginVO.getId());
 		return "redirect:/main";
+	}
+	@RequestMapping(value = "/pro", method = RequestMethod.GET)
+	public String progress(LoginVO loginVO, Model model, HttpSession session) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
+			return "redirect:/main";
+		}
+		model.addAttribute("ordersList", orderService.listOrders(loginVO.getId()));
+		return "/order/progress";
 	}
 }

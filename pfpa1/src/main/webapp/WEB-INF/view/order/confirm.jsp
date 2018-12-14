@@ -50,6 +50,7 @@
 	</table>
 	배송 정보
 	<form action="${path}/cfo" method="post">
+	<input type="hidden" name="sum" value="${sum}">
 	<table border="1" id="same" style="display: block;">
 		<tr>
 			<th>delivery</th>

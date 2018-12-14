@@ -30,8 +30,8 @@
 		select distinct orno from cart where orno is not null and id = #{id} 
 	</select>
 	<insert id="insertOrder" parameterType="ordersVO">
-		insert into orders (no, orno, id, name, poco, addr, daddr, tel, ceph, dema, prog, regd, pame, pade)
-		values (orders_seq.nextval, #{orno}, #{id}, #{name}, #{poco}, #{addr}, #{daddr}, #{tel}, #{ceph}, #{dema}, '결제대기중', systimestamp, #{pame}, #{pade})
+		insert into orders (no, orno, id, name, poco, addr, daddr, tel, ceph, dema, prog, regd, pame, pade, item, sum)
+		values (orders_seq.nextval, #{orno}, #{id}, #{name}, #{poco}, #{addr}, #{daddr}, #{tel}, #{ceph}, #{dema}, '결제대기중', systimestamp, #{pame}, #{pade}, #{item}, #{sum})
 	</insert>
 	<insert id="insertOrDe" parameterType="cartVO">
 		insert into orderdetail (no, id, item, cate, pric, opti, proop, stock, regd, orno)
@@ -45,5 +45,11 @@
 	</select>
 	<select id="selectOrders" parameterType="map" resultType="ordersVO">
 		select * from orders where id = #{id} and orno = #{orno}
+	</select>
+	<select id="selectLaIt" parameterType="String" resultType="String">
+		select item from (select rownum rn, item, regd from (select item, regd from cart where id = #{id} order by regd desc)) where rn = 1
+	</select>
+	<select id="countCart" parameterType="map" resultType="Integer">
+		select count(*) from cart where id = #{id} and orno = #{orno}
 	</select>
 </mapper>
