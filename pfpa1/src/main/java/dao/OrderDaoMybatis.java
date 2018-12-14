@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import common.utils.Criteria;
 import domain.CartVO;
 import domain.OrdersVO;
 
@@ -90,5 +91,22 @@ public class OrderDaoMybatis implements OrderDao {
 	@Override
 	public int deleteOrDe(Map<String, Object> map) {
 		return sqlSessionTemplate.delete("orderDao.deleteOrDe", map);
+	}
+	@Override
+	public int countOd() {
+		return sqlSessionTemplate.selectOne("orderDao.countOd");
+	}
+	@Override
+	public List<OrdersVO> listOd(Criteria criteria) {
+		return sqlSessionTemplate.selectList("orderDao.listOd", criteria);
+	}
+	@Override
+	public OrdersVO selectOd(int orno) {
+		OrdersVO ordersVO = (OrdersVO)sqlSessionTemplate.selectOne("orderDao.selectOd", orno);
+		return ordersVO;
+	}
+	@Override
+	public List<CartVO> selectOdd(int orno) {
+		return sqlSessionTemplate.selectList("orderDao.selectOdd", orno);
 	}
 }

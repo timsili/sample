@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 import java.util.Map;
 
+import common.utils.Criteria;
 import domain.CartVO;
 import domain.OrdersVO;
 
@@ -25,4 +26,8 @@ public interface OrderService {
 	public abstract List<CartVO> listOrde(Map<String, Object> map);
 	public abstract int deleteOrders(Map<String, Object> map);
 	public abstract int deleteOrDe(Map<String, Object> map);
+	public abstract int countOd();
+	public abstract List<OrdersVO> listOd(Criteria criteria);
+	public abstract OrdersVO selectOd(int orno);
+	public abstract List<CartVO> selectOdd(int orno);
 }

@@ -24,6 +24,7 @@ this is main page<br>
 	<c:if test="${loginVO.id eq 'admin'}">
 		<a href="<c:url value="/mli"/>">회원목록</a><br>
 		<a href="<c:url value="/apl"/>">물품목록[관리]</a><br>
+		<a href="<c:url value="/oal"/>">주문목록</a><br>
 	</c:if>
 </c:if>
 <a href="<c:url value="/pli"/>">물품목록</a><br>
