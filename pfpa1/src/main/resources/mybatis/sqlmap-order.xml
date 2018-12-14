@@ -61,4 +61,18 @@
 	<delete id="deleteOrDe" parameterType="map">
 		delete from orderdetail where id = #{id} and orno = #{orno}
 	</delete>
+	<select id="countOd" resultType="Integer">
+		select count(*) from orders
+	</select>
+	<select id="listOd" resultType="ordersVO">
+		<![CDATA[
+		select * from (select * from (select rownum rn, no, orno, id, prog, regd, pame, pade, item, sum	from orders order by regd desc) where rn <= #{end}) where rn >= #{start}
+		]]>
+	</select>
+	<select id="selectOd" parameterType="Integer" resultType="ordersVO">
+		select * from orders where orno = #{orno}
+	</select>
+	<select id="selectOdd" parameterType="Integer" resultType="cartVO">
+		select * from orderdetail where orno = #{orno}
+	</select>
 </mapper>

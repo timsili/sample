@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import common.utils.Criteria;
+import common.utils.Pagination;
 import domain.CartVO;
 import domain.LoginVO;
 import domain.MemberVO;
@@ -195,5 +197,28 @@ public class OrderController {
 		orderService.deleteOrders(map);
 		orderService.deleteOrDe(map);
 		return "redirect:/pro";
+	}
+	@RequestMapping(value = "/oal", method = RequestMethod.GET)
+	public String ordAdmList(LoginVO loginVO, Model model, HttpSession session, Criteria criteria) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		Pagination pagination = new Pagination();
+		pagination.setCriteria(criteria);
+		pagination.setCount(orderService.countOd());
+		model.addAttribute("odList", orderService.listOd(criteria));
+		model.addAttribute("pagination", pagination);
+		return "/order/orderList";
+	}
+	@RequestMapping(value = "/oad/{orno}", method = RequestMethod.GET)
+	public String ordAdmDetail(LoginVO loginVO, Model model, HttpSession session, @PathVariable int orno) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null || !loginVO.getId().equals("admin")) {
+			return "redirect:/main";
+		}
+		model.addAttribute("od", orderService.selectOd(orno));
+		model.addAttribute("odd", orderService.selectOdd(orno));
+		return "/order/orderDetail";
 	}
 }

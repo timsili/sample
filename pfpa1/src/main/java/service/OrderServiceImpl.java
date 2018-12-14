@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import common.utils.Criteria;
 import dao.OrderDao;
 import domain.CartVO;
 import domain.OrdersVO;
@@ -89,5 +90,21 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int deleteOrDe(Map<String, Object> map) {
 		return orderDao.deleteOrDe(map);
+	}
+	@Override
+	public int countOd() {
+		return orderDao.countOd();
+	}
+	@Override
+	public List<OrdersVO> listOd(Criteria criteria) {
+		return orderDao.listOd(criteria);
+	}
+	@Override
+	public OrdersVO selectOd(int orno) {
+		return orderDao.selectOd(orno);
+	}
+	@Override
+	public List<CartVO> selectOdd(int orno) {
+		return orderDao.selectOdd(orno);
 	}
 }
