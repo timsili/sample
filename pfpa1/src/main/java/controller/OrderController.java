@@ -183,4 +183,17 @@ public class OrderController {
 		model.addAttribute("orderList", orderService.listOrde(map));
 		return "/order/progDetail";
 	}
+	@RequestMapping(value = "/ode/{orno}", method = RequestMethod.GET)
+	public String deleteOrder(LoginVO loginVO, Model model, HttpSession session, @PathVariable int orno) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
+			return "redirect:/main";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("orno", orno);
+		orderService.deleteOrders(map);
+		orderService.deleteOrDe(map);
+		return "redirect:/pro";
+	}
 }

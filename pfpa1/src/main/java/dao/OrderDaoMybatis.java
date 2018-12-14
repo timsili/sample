@@ -83,4 +83,12 @@ public class OrderDaoMybatis implements OrderDao {
 	public List<CartVO> listOrde(Map<String, Object> map) {
 		return sqlSessionTemplate.selectList("orderDao.listOrde", map);
 	}
+	@Override
+	public int deleteOrders(Map<String, Object> map) {
+		return sqlSessionTemplate.delete("orderDao.deleteOrders", map);
+	}
+	@Override
+	public int deleteOrDe(Map<String, Object> map) {
+		return sqlSessionTemplate.delete("orderDao.deleteOrDe", map);
+	}
 }

@@ -82,4 +82,12 @@ public class OrderServiceImpl implements OrderService {
 	public List<CartVO> listOrde(Map<String, Object> map) {
 		return orderDao.listOrde(map);
 	}
+	@Override
+	public int deleteOrders(Map<String, Object> map) {
+		return orderDao.deleteOrders(map);
+	}
+	@Override
+	public int deleteOrDe(Map<String, Object> map) {
+		return orderDao.deleteOrDe(map);
+	}
 }
