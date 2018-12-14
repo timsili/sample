@@ -26,6 +26,9 @@ public class OrdersVO {
 	private String pame;
 //	payment detail
 	private String pade;
+//	latest item
+	private String item;
+	private int sum;
 	public int getNo() {
 		return no;
 	}
@@ -109,5 +112,17 @@ public class OrdersVO {
 	}
 	public void setPade(String pade) {
 		this.pade = pade;
+	}
+	public String getItem() {
+		return item;
+	}
+	public void setItem(String item) {
+		this.item = item;
+	}
+	public int getSum() {
+		return sum;
+	}
+	public void setSum(int sum) {
+		this.sum = sum;
 	}
 }

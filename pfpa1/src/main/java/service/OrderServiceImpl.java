@@ -70,4 +70,12 @@ public class OrderServiceImpl implements OrderService {
 	public OrdersVO selectOrders(Map<String, Object> map) {
 		return orderDao.selectOrders(map);
 	}
+	@Override
+	public String selectLaIt(String id) {
+		return orderDao.selectLaIt(id);
+	}
+	@Override
+	public int countCart(Map<String, Object> map) {
+		return orderDao.countCart(map);
+	}
 }

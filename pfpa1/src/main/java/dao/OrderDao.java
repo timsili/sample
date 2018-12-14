@@ -20,4 +20,6 @@ public interface OrderDao {
 	public abstract int deleteCart(String id);
 	public abstract List<OrdersVO> listOrders(String id);
 	public abstract OrdersVO selectOrders(Map<String, Object> map);
+	public abstract String selectLaIt(String id);
+	public abstract int countCart(Map<String, Object> map);
 }

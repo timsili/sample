@@ -19,6 +19,7 @@ this is main page<br>
 	<a href="<c:url value="/lou"/>">로그아웃</a><br>
 	<c:if test="${loginVO.id ne 'admin'}">
 		<a href="<c:url value="/mde/${loginVO.id}"/>">회원탈퇴</a><br>
+		<a href="<c:url value="/pro"/>">배송조회</a><br>
 	</c:if>
 	<c:if test="${loginVO.id eq 'admin'}">
 		<a href="<c:url value="/mli"/>">회원목록</a><br>
