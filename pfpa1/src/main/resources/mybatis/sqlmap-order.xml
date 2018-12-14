@@ -55,4 +55,10 @@
 	<select id="listOrde" parameterType="map" resultType="cartVO">
 		select * from orderdetail where id = #{id} and orno = #{orno} order by regd desc
 	</select>
+	<delete id="deleteOrders" parameterType="map">
+		delete from orders where id = #{id} and orno = #{orno}
+	</delete>
+	<delete id="deleteOrDe" parameterType="map">
+		delete from orderdetail where id = #{id} and orno = #{orno}
+	</delete>
 </mapper>

@@ -16,14 +16,16 @@
 			<th>item</th>
 			<th>sum</th>
 			<th>prog</th>
+			<th>cancel</th>
 		</tr>
-		<c:forEach var="o" items="${ordersList}">
+		<c:forEach var="o" items="${ordersList}" varStatus="status">
 			<tr>
 				<td><a href="<c:url value="/pro/${o.orno}"/>">${o.orno}</a></td>
 				<td>${o.regd}</td>
 				<td>${o.item}</td>
 				<td>${o.sum}</td>
 				<td>${o.prog}</td>
+				<td><a href="<c:url value="/ode/${o.orno}"/>">cancel</a></td>
 			</tr>
 		</c:forEach>
 	</table>
