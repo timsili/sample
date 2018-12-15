@@ -32,4 +32,7 @@
 	<select id="getSalt" parameterType="String" resultType="String">
 		select salt from member where id = #{id}
 	</select>
+	<update id="updateGrade" parameterType="map">
+		update member set sum = #{sum}, poin = #{poin}, rank = #{rank} where id = #{id}
+	</update>
 </mapper>

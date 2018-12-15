@@ -78,4 +78,8 @@
 	<update id="updateProg" parameterType="map">
 		update orders set prog = #{prog} where orno = #{orno}
 	</update>
+	<insert id="insertPay" parameterType="map">
+		insert into pay (no, id, pric, regd) 
+		values (pay_seq.nextval, #{id}, #{pric}, systimestamp)
+	</insert>
 </mapper>

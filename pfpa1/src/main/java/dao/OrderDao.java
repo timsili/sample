@@ -31,4 +31,5 @@ public interface OrderDao {
 	public abstract OrdersVO selectOd(int orno);
 	public abstract List<CartVO> selectOdd(int orno);
 	public abstract int updateProg(Map<String, Object> map);
+	public abstract void insertPay(Map<String, Object> map);
 }

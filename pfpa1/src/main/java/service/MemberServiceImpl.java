@@ -1,12 +1,14 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import common.utils.Criteria;
 import dao.MemberDao;
 import domain.MemberVO;
+import oracle.net.aso.p;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -48,5 +50,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String getSalt(String id) {
 		return memberDao.getSalt(id);
+	}
+	@Override
+	public int updateGrade(Map<String, Object> map) {
+		return memberDao.updateGrade(map);
 	}
 }

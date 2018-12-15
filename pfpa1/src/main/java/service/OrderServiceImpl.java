@@ -111,4 +111,8 @@ public class OrderServiceImpl implements OrderService {
 	public int updateProg(Map<String, Object> map) {
 		return orderDao.updateProg(map);
 	}
+	@Override
+	public void insertPay(Map<String, Object> map) {
+		orderDao.insertPay(map);
+	}
 }
