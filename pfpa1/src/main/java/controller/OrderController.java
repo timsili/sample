@@ -240,4 +240,45 @@ public class OrderController {
 		orderService.updateProg(map);
 		return "redirect:/oad/{orno}";
 	}
+	@RequestMapping(value = "/oen/{orno}", method = RequestMethod.GET)
+	public String orderEnd(LoginVO loginVO, MemberVO memberVO, HttpSession session, @PathVariable int orno) {
+		loginVO = (LoginVO)session.getAttribute("loginVO");
+		if(loginVO == null) {
+			return "redirect:/main";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("orno", orno);
+		int pric = orderService.selectOrders(map).getSum();
+		orderService.deleteOrders(map);
+		orderService.deleteOrDe(map);
+		map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("pric", pric);
+		orderService.insertPay(map);
+		memberVO = memberService.selectById(loginVO.getId());
+		int sum = memberVO.getSum();
+		int point = memberVO.getPoin();
+		String rank = "";
+		sum = sum + pric;
+		point = point + (int)(pric*0.02);
+		if(sum >= 5000000 && sum < 20000000) {
+			rank = "Silver";
+		}else if(sum >= 20000000 && sum < 40000000) {
+			rank = "Gold";
+		}else if(sum >= 40000000 && sum < 70000000) {
+			rank = "Diamond";
+		}else if(sum > 70000000){
+			rank = "VIP";
+		}else {
+			rank = "일반";
+		}
+		map = new HashMap<String, Object>();
+		map.put("id", loginVO.getId());
+		map.put("sum", sum);
+		map.put("poin", point);
+		map.put("rank", rank);
+		memberService.updateGrade(map);
+		return "redirect:/pro";
+	}
 }

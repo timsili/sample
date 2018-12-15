@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import common.utils.Criteria;
 import domain.MemberVO;
@@ -14,4 +15,5 @@ public interface MemberService {
 	public abstract int update(MemberVO memberVO);
 	public abstract int delete(String id);
 	public abstract String getSalt(String id);
+	public abstract int updateGrade(Map<String, Object> map);
 }

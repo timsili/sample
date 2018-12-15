@@ -113,4 +113,8 @@ public class OrderDaoMybatis implements OrderDao {
 	public int updateProg(Map<String, Object> map) {
 		return sqlSessionTemplate.update("orderDao.updateProg", map);
 	}
+	@Override
+	public void insertPay(Map<String, Object> map) {
+		sqlSessionTemplate.insert("orderDao.insertPay", map);
+	}
 }

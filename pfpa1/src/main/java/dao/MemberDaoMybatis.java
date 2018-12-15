@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -49,5 +50,9 @@ public class MemberDaoMybatis implements MemberDao {
 	@Override
 	public String getSalt(String id) {
 		return sqlSessionTemplate.selectOne("memberDao.getSalt", id);
+	}
+	@Override
+	public int updateGrade(Map<String, Object> map) {
+		return sqlSessionTemplate.update("memberDao.updateGrade", map);
 	}
 }

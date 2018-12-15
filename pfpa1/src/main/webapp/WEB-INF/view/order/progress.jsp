@@ -25,7 +25,17 @@
 				<td>${o.item}</td>
 				<td>${o.sum}</td>
 				<td>${o.prog}</td>
-				<td><a href="<c:url value="/ode/${o.orno}"/>">cancel</a></td>
+				<td>
+					<c:if test="${o.prog eq '결제대기중' || o.prog eq '배송준비중'}">
+						<a href="<c:url value="/ode/${o.orno}"/>">cancel</a>
+					</c:if>
+					<c:if test="${o.prog eq '배송중'}">
+						배송중
+					</c:if>
+					<c:if test="${o.prog eq '배송완료'}">
+						<a href="<c:url value="/oen/${o.orno}"/>">confirm</a>
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
