@@ -72,6 +72,28 @@
 			<th>sum</th>
 			<td>${od.sum}</td>
 		<tr>
+		<tr>
+			<th>pame</th>
+			<td>${od.pame}</td>
+		</tr>
+		<tr>
+			<th>pade</th>
+			<td>${od.pade}</td>
+		</tr>
+		<tr>
+			<th>change</th>
+			<td>
+				<form action="${path}/oad/${od.orno}" method="post">
+					<select name="progress">
+						<option value="wp">결제대기중</option>
+						<option value="pd">배송준비중</option>
+						<option value="od">배송중</option>
+						<option value="cd">배송완료</option>
+					</select>
+					<input type="submit" value="change">
+				</form>
+			</td>
+		</tr>
 	</table>
 </body>
 </html>

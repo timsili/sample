@@ -109,4 +109,8 @@ public class OrderDaoMybatis implements OrderDao {
 	public List<CartVO> selectOdd(int orno) {
 		return sqlSessionTemplate.selectList("orderDao.selectOdd", orno);
 	}
+	@Override
+	public int updateProg(Map<String, Object> map) {
+		return sqlSessionTemplate.update("orderDao.updateProg", map);
+	}
 }

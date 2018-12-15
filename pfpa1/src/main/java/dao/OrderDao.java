@@ -30,4 +30,5 @@ public interface OrderDao {
 	public abstract List<OrdersVO> listOd(Criteria criteria);
 	public abstract OrdersVO selectOd(int orno);
 	public abstract List<CartVO> selectOdd(int orno);
+	public abstract int updateProg(Map<String, Object> map);
 }
