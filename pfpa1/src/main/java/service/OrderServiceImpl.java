@@ -107,4 +107,8 @@ public class OrderServiceImpl implements OrderService {
 	public List<CartVO> selectOdd(int orno) {
 		return orderDao.selectOdd(orno);
 	}
+	@Override
+	public int updateProg(Map<String, Object> map) {
+		return orderDao.updateProg(map);
+	}
 }

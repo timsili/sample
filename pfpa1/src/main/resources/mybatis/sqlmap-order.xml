@@ -66,7 +66,7 @@
 	</select>
 	<select id="listOd" resultType="ordersVO">
 		<![CDATA[
-		select * from (select * from (select rownum rn, no, orno, id, prog, regd, pame, pade, item, sum	from orders order by regd desc) where rn <= #{end}) where rn >= #{start}
+		select * from (select * from (select rownum rn, no, orno, id, prog, regd, pame, pade, item, sum	from (select * from orders order by regd desc)) where rn <= #{end}) where rn >= #{start}
 		]]>
 	</select>
 	<select id="selectOd" parameterType="Integer" resultType="ordersVO">
@@ -75,4 +75,7 @@
 	<select id="selectOdd" parameterType="Integer" resultType="cartVO">
 		select * from orderdetail where orno = #{orno}
 	</select>
+	<update id="updateProg" parameterType="map">
+		update orders set prog = #{prog} where orno = #{orno}
+	</update>
 </mapper>

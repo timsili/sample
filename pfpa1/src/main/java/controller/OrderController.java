@@ -221,4 +221,23 @@ public class OrderController {
 		model.addAttribute("odd", orderService.selectOdd(orno));
 		return "/order/orderDetail";
 	}
+	@RequestMapping(value = "/oad/{orno}", method = RequestMethod.POST)
+	public String ordAdmDetail(HttpServletRequest req, @PathVariable int orno) {
+		String progress = "";
+		String tmp = req.getParameter("progress");
+		if(tmp.equals("pd")) {
+			progress = "배송준비중";
+		}else if(tmp.equals("od")) {
+			progress = "배송중";
+		}else if(tmp.equals("cd")) {
+			progress = "배송완료";
+		}else {
+			progress = "결제대기중";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prog", progress);
+		map.put("orno", orno);
+		orderService.updateProg(map);
+		return "redirect:/oad/{orno}";
+	}
 }
